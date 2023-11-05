@@ -1,0 +1,28 @@
+{
+  "name": "streaming-app",
+  "version": "1.0.0",
+  "description": "Video streaming API using Express and MongoDB",
+  "type": "module",
+  "scripts": {
+    "start:dev": "concurrently \"tsc -w -p server\" \"nodemon server/dist/index.js\" ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Iodi Istvan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.20",
+    "@types/mongodb": "^4.0.7",
+    "@types/node": "^20.8.9",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.53.0",
+    "nodemon": "^3.0.1",
+    "typescript": "^5.2.2"
+  }
+}
