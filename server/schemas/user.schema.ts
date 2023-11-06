@@ -1,4 +1,5 @@
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
+import validator from 'validator';
 import IUser from '../models/user.model.js';
 
 const userSchema = new mongoose.Schema<IUser>({
@@ -9,17 +10,20 @@ const userSchema = new mongoose.Schema<IUser>({
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    minlength: 8,
   },
   email: {
     type: String,
     required: true,
     trim: true,
     unique: true,
+    lowercase: true,
+    validate: validator.isEmail,
   },
   subscribers: {
     type: Number,
-    required: true,
+    default: 0,
   },
 })
 

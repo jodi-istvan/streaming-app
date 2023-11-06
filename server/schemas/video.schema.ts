@@ -31,8 +31,9 @@ const videoSchema = new mongoose.Schema<IVideo>({
     ref: 'User'
   },
   createdAt: {
-    type: Date.now,
-    required: true
+    type: Date,
+    required: true,
+    default: Date.now
   },
   likes: {
     type: Number,

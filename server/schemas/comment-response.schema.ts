@@ -7,17 +7,14 @@ const commentResponseSchema = new mongoose.Schema<ICommentResponse>({
     required: true,
     trim: true
   },
-  video: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comment'
-  },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
   createdAt: {
-    type: Date.now,
-    required: true
+    type: Date,
+    required: true,
+    default: Date.now
   },
   likes: {
     type: Number,
