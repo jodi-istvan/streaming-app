@@ -6,4 +6,3 @@ const userController = new UserController();
 export const userRouter = express.Router()
 
 userRouter.route('/:id').get(userController.get)
-userRouter.route('/').post(userController.create)

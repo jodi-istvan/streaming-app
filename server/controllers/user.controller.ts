@@ -14,15 +14,4 @@ export default class UserController {
       return res.sendStatus(500);
     }
   }
-  
-  public readonly create = async (req: Request, res: Response) => {
-    const { name, password, email } = req.body;
-    try {
-      const document = await this.model.create({ name, password, email });
-      return res.status(201).json(document);
-    } catch (err) {
-      console.error(err);
-      return res.sendStatus(500);
-    }
-  }
 }
