@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { User } from '../schemas/user.schema.js';
 
 export default class AuthController {
@@ -51,5 +51,12 @@ export default class AuthController {
     
     const token = this.signToken(user._id);
     return res.status(200).json({ token });
+  }
+  
+  public static readonly authenticate = async (req: Request, res: Response, next: NextFunction) => {
+    // decode token and fetch User
+    const user = await User.findOne();
+    req.user = user;
+    next();
   }
 }

@@ -5,10 +5,14 @@ import { userRouter } from './routes/user-route.js';
 import { authRouter } from './routes/auth-route.js';
 import { videoRouter } from './routes/video-routes.js';
 
+import AuthController from './controllers/auth.controller.js';
+
 export const app: Express = express();
 
 app.use(express.json())
 app.use(morgan('dev'))
+
+app.use(AuthController.authenticate)
 
 app.use('/api/user', userRouter)
 app.use('/api/auth', authRouter)

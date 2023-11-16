@@ -44,5 +44,11 @@ export default class AuthController {
         const token = this.signToken(user._id);
         return res.status(200).json({ token });
     };
+    static authenticate = async (req, res, next) => {
+        // decode token and fetch User
+        const user = await User.findOne();
+        req.user = user;
+        next();
+    };
 }
 //# sourceMappingURL=auth.controller.js.map

@@ -5,10 +5,10 @@ import IComment from './comment.model.js';
 
 export default interface IVideo extends Document, IAudit, IUserFeedback {
   title: string;
+  description: string;
   duration: number;
   thumbnailPath: string;
-  filePath: string;
+  fileName: string;
   views: number;
-  videos: Array<IVideo>,
   comments: Array<IComment>,
 }

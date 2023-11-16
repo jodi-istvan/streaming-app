@@ -5,6 +5,11 @@ const videoSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    description: {
+        type: String,
+        required: true,
+        trim: true
+    },
     duration: {
         type: Number,
         required: true
@@ -14,7 +19,7 @@ const videoSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    filePath: {
+    fileName: {
         type: String,
         required: true,
         trim: true
