@@ -38,6 +38,19 @@ export default class VideoController {
   
   public readonly uploadVideoFile = this._multerUpload.single('video')
   
+  public readonly get = async (req: Request, res: Response) => {
+    const { id } = req.params
+    if (!id) {
+      return res.status(400).json({ message: 'Video id missing from url params' })
+    }
+    
+    const videoDoc = await this.model.findById(id)
+    if (!videoDoc) {
+      return res.status(404).json({ message: 'Video not found' })
+    }
+    return res.status(200).json(videoDoc)
+  }
+  
   public readonly create = async (req: Request, res: Response) => {
     const { title, description } = req.body
     const fileName = req.file.filename

@@ -31,6 +31,17 @@ export default class VideoController {
         fileFilter: this._multerFileFilter
     });
     uploadVideoFile = this._multerUpload.single('video');
+    get = async (req, res) => {
+        const { id } = req.params;
+        if (!id) {
+            return res.status(400).json({ message: 'Video id missing from url params' });
+        }
+        const videoDoc = await this.model.findById(id);
+        if (!videoDoc) {
+            return res.status(404).json({ message: 'Video not found' });
+        }
+        return res.status(200).json(videoDoc);
+    };
     create = async (req, res) => {
         const { title, description } = req.body;
         const fileName = req.file.filename;
