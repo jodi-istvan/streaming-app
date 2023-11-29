@@ -5,5 +5,4 @@ const videoController = new VideoController()
 
 export const videoRouter = express.Router()
 
-videoRouter.get('/stream', videoController.stream)
-videoRouter.post('/upload', videoController.uploadVideoFile, videoController.create)
+videoRouter.post('/', videoController.uploadVideoFile, videoController.create)

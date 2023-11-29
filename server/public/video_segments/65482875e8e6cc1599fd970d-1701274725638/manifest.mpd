@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Generated with https://github.com/google/shaka-packager version v2.6.1-634af65-release-->
+<MPD xmlns="urn:mpeg:dash:schema:mpd:2011" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:mpeg:dash:schema:mpd:2011 DASH-MPD.xsd" profiles="urn:mpeg:dash:profile:isoff-live:2011" minBufferTime="PT2S" type="static" mediaPresentationDuration="PT31.08333396911621S">
+  <Period id="0">
+    <AdaptationSet id="0" contentType="audio" segmentAlignment="true">
+      <Representation id="0" bandwidth="130384" codecs="mp4a.40.2" mimeType="audio/mp4" audioSamplingRate="44100">
+        <AudioChannelConfiguration schemeIdUri="urn:mpeg:dash:23003:3:audio_channel_configuration:2011" value="2"/>
+        <SegmentTemplate timescale="44100" initialization="audio_128k_init.m4a" media="audio_128k_$Number%03d$.m4s" startNumber="1">
+          <SegmentTimeline>
+            <S t="0" d="441344" r="1"/>
+            <S t="882688" d="440320"/>
+            <S t="1323008" d="48261"/>
+          </SegmentTimeline>
+        </SegmentTemplate>
+      </Representation>
+    </AdaptationSet>
+    <AdaptationSet id="1" contentType="video" maxWidth="854" maxHeight="480" frameRate="12288/512" segmentAlignment="true" par="16:9">
+      <Representation id="1" bandwidth="417534" codecs="avc1.64001e" mimeType="video/mp4" sar="1280:1281" width="854" height="480">
+        <SegmentTemplate timescale="12288" initialization="video_854x480_init.mp4" media="video_854x480_$Number%03d$.m4s" startNumber="1">
+          <SegmentTimeline>
+            <S t="0" d="140800"/>
+            <S t="140800" d="153600"/>
+            <S t="294400" d="87552"/>
+          </SegmentTimeline>
+        </SegmentTemplate>
+      </Representation>
+      <Representation id="2" bandwidth="274980" codecs="avc1.64001e" mimeType="video/mp4" sar="1:1" width="640" height="360">
+        <SegmentTemplate timescale="12288" initialization="video_640x360_init.mp4" media="video_640x360_$Number%03d$.m4s" startNumber="1">
+          <SegmentTimeline>
+            <S t="0" d="140800"/>
+            <S t="140800" d="153600"/>
+            <S t="294400" d="87552"/>
+          </SegmentTimeline>
+        </SegmentTemplate>
+      </Representation>
+      <Representation id="3" bandwidth="146934" codecs="avc1.640015" mimeType="video/mp4" sar="640:639" width="426" height="240">
+        <SegmentTemplate timescale="12288" initialization="video_426x240_init.mp4" media="video_426x240_$Number%03d$.m4s" startNumber="1">
+          <SegmentTimeline>
+            <S t="0" d="140800"/>
+            <S t="140800" d="153600"/>
+            <S t="294400" d="87552"/>
+          </SegmentTimeline>
+        </SegmentTemplate>
+      </Representation>
+    </AdaptationSet>
+  </Period>
+</MPD>

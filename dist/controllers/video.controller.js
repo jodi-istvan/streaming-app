@@ -1,9 +1,11 @@
-import * as fs from 'fs';
 import multer from 'multer';
+import shell from 'shelljs';
 import { Video } from '../schemas/video.schema.js';
 export default class VideoController {
     model = Video;
-    videoFileDest = `${process.cwd()}/server/media/videos/`;
+    videoUploadFileDest = `${process.cwd()}/server/tmp/videos`;
+    videoSegmentsDest = `${process.cwd()}/server/public/video_segments`;
+    thumbnailsDest = `${process.cwd()}/server/public/thumbnails`;
     _multerFileFilter = (req, file, cb) => {
         if (file.mimetype.startsWith('video')) {
             cb(null, true);
@@ -14,7 +16,7 @@ export default class VideoController {
     };
     _multerStorage = multer.diskStorage({
         destination: (req, file, cb) => {
-            cb(null, this.videoFileDest);
+            cb(null, this.videoUploadFileDest);
         },
         filename: (req, file, cb) => {
             const userId = req.user._id;
@@ -28,65 +30,45 @@ export default class VideoController {
         storage: this._multerStorage,
         fileFilter: this._multerFileFilter
     });
-    stream = async (req, res) => {
-        const videoId = req.query.id;
-        const videoDoc = await this.model.findById(videoId);
-        if (!videoDoc) {
-            return res.status(404).json({ message: 'Video not found' });
-        }
-        try {
-            const filePath = `${process.cwd()}/server/media/videos/${videoDoc.fileName}`;
-            const videoStats = fs.statSync(filePath);
-            const fileSize = videoStats.size;
-            const { range } = req.headers;
-            if (range) {
-                const part = range.split('bytes=')[1].split(', ')[0].split('-');
-                const start = parseInt(part[0], 10);
-                const end = part[1] ? parseInt(part[1], 10) : fileSize - 1;
-                const chunkSize = end - start + 1;
-                const file = fs.createReadStream(filePath, { start, end });
-                const header = {
-                    'Content-Range': `bytes ${start}-${end}/${fileSize}`,
-                    'Accept-Ranges': 'bytes',
-                    'Content-Length': chunkSize,
-                    'Content-Type': 'video/mp4'
-                };
-                res.writeHead(206, header);
-                file.pipe(res);
-            }
-            else {
-                const header = {
-                    'Content-Length': fileSize,
-                    'Content-Type': 'video/mp4'
-                };
-                res.writeHead(200, header);
-                fs.createReadStream(filePath).pipe(res);
-            }
-        }
-        catch (err) {
-            console.error(err);
-            return res.sendStatus(500);
-        }
-    };
     uploadVideoFile = this._multerUpload.single('video');
     create = async (req, res) => {
-        const { title, description, duration, thumbnailPath } = req.body;
-        const userId = req.user._id;
+        const { title, description } = req.body;
         const fileName = req.file.filename;
+        if (!title || !description) {
+            return res.status(400).json({ message: 'title and description missing from request body' });
+        }
         try {
+            const createdBy = req.user._id;
+            const videoId = fileName.split('.')[0];
+            const videoFormatExec = shell.exec(`${process.cwd()}/server/scripts/get_video_format.sh ${this.videoUploadFileDest}/${fileName}`);
+            if (videoFormatExec.code !== 0) {
+                throw new Error('ffmpeg video conversion failed');
+            }
+            const videoFormatJSON = JSON.parse(videoFormatExec.stdout).format;
+            const duration = Math.floor(Number(videoFormatJSON.duration)); // seconds
+            const generateSegmentsExec = shell.exec(`${process.cwd()}/server/scripts/generate_segments.sh ${this.videoUploadFileDest}/${fileName} ${this.videoSegmentsDest} ${videoId}`);
+            if (generateSegmentsExec.code !== 0) {
+                throw new Error('shaka packager packaging failed');
+            }
+            const mpdPath = `${this.videoSegmentsDest}/${videoId}/manifest.mpd`;
+            const thumbnailPath = `${this.thumbnailsDest}/${videoId}.jpg`;
+            const generateSSExec = shell.exec(`${process.cwd()}/server/scripts/generate_screenshot.sh ${this.videoUploadFileDest}/${fileName} ${thumbnailPath}`);
+            if (generateSSExec.code !== 0) {
+                throw new Error('ffmpeg screenshot failed');
+            }
             const videoDoc = await this.model.create({
                 title,
                 description,
-                duration: 0,
-                thumbnailPath: 'asd',
-                fileName,
-                createdBy: userId
+                duration,
+                thumbnailPath,
+                mpdPath,
+                createdBy
             });
-            return res.status(200).json({ video: videoDoc });
+            return res.status(200).json(videoDoc);
         }
         catch (err) {
             console.error(err);
-            return res.sendStatus(500);
+            return res.status(500).json({ message: 'Video upload failed' });
         }
     };
 }

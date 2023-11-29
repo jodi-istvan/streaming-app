@@ -19,7 +19,7 @@ const videoSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    fileName: {
+    mpdPath: {
         type: String,
         required: true,
         trim: true

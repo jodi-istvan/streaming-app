@@ -1,5 +1,6 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
 
 import { userRouter } from './routes/user-route.js';
 import { authRouter } from './routes/auth-route.js';
@@ -9,8 +10,10 @@ import AuthController from './controllers/auth.controller.js';
 
 export const app: Express = express();
 
-app.use(express.json())
+app.use(cors())
 app.use(morgan('dev'))
+app.use(express.json())
+app.use('/server/public', express.static(`${process.cwd()}/server/public`))
 
 app.use(AuthController.authenticate)
 
