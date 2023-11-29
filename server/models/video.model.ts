@@ -7,6 +7,7 @@ export default interface IVideo extends Document, IAudit, IUserFeedback {
   title: string;
   description: string;
   duration: number;
+  videoFileId: string;
   thumbnailPath: string;
   mpdPath: string;
   views: number;

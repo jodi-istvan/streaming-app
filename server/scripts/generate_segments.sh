@@ -1,3 +1,8 @@
+if [[ $# -ne 3 ]]; then
+  echo "usage: $0 in_video out_video_dir video_id"
+  exit 1
+fi
+
 # TODO: Check bitrate and resolution of video with ffprobe to decide which formats to generate
 
 readonly VIDEO_INPUT_FILE=$1

@@ -14,6 +14,10 @@ const videoSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    videoFileId: {
+        type: String,
+        required: true
+    },
     thumbnailPath: {
         type: String,
         required: true,

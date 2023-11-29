@@ -35,31 +35,33 @@ export default class VideoController {
         const { title, description } = req.body;
         const fileName = req.file.filename;
         if (!title || !description) {
-            return res.status(400).json({ message: 'title and description missing from request body' });
+            return res.status(400).json({ message: 'Title and description missing from request body' });
         }
         try {
             const createdBy = req.user._id;
-            const videoId = fileName.split('.')[0];
+            const videoFileId = fileName.split('.')[0];
             const videoFormatExec = shell.exec(`${process.cwd()}/server/scripts/get_video_format.sh ${this.videoUploadFileDest}/${fileName}`);
             if (videoFormatExec.code !== 0) {
                 throw new Error('ffmpeg video conversion failed');
             }
             const videoFormatJSON = JSON.parse(videoFormatExec.stdout).format;
             const duration = Math.floor(Number(videoFormatJSON.duration)); // seconds
-            const generateSegmentsExec = shell.exec(`${process.cwd()}/server/scripts/generate_segments.sh ${this.videoUploadFileDest}/${fileName} ${this.videoSegmentsDest} ${videoId}`);
+            const generateSegmentsExec = shell.exec(`${process.cwd()}/server/scripts/generate_segments.sh ${this.videoUploadFileDest}/${fileName} ${this.videoSegmentsDest} ${videoFileId}`);
             if (generateSegmentsExec.code !== 0) {
                 throw new Error('shaka packager packaging failed');
             }
-            const mpdPath = `${this.videoSegmentsDest}/${videoId}/manifest.mpd`;
-            const thumbnailPath = `${this.thumbnailsDest}/${videoId}.jpg`;
+            const mpdPath = `${this.videoSegmentsDest}/${videoFileId}/manifest.mpd`;
+            const thumbnailPath = `${this.thumbnailsDest}/${videoFileId}.jpg`;
             const generateSSExec = shell.exec(`${process.cwd()}/server/scripts/generate_screenshot.sh ${this.videoUploadFileDest}/${fileName} ${thumbnailPath}`);
             if (generateSSExec.code !== 0) {
                 throw new Error('ffmpeg screenshot failed');
             }
+            this.removeTmpVideo(fileName);
             const videoDoc = await this.model.create({
                 title,
                 description,
                 duration,
+                videoFileId,
                 thumbnailPath,
                 mpdPath,
                 createdBy
@@ -68,7 +70,57 @@ export default class VideoController {
         }
         catch (err) {
             console.error(err);
-            return res.status(500).json({ message: 'Video upload failed' });
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+    };
+    delete = async (req, res) => {
+        const { id } = req.params;
+        if (!id) {
+            return res.status(400).json({ message: 'Video id missing from url params' });
+        }
+        try {
+            const videoDoc = await this.model.findById(id);
+            if (!videoDoc) {
+                return res.status(404).json({ message: 'Video not found' });
+            }
+            this.removeSegments(videoDoc.videoFileId);
+            this.removeThumbnail(`${videoDoc.videoFileId}.jpg`);
+            await this.model.findByIdAndDelete(id);
+            return res.sendStatus(204);
+        }
+        catch (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+    };
+    removeTmpVideo = (videoFileName) => {
+        if (!videoFileName) {
+            return;
+        }
+        const path = `${this.videoUploadFileDest}/${videoFileName}`;
+        const rmExec = shell.exec(`rm ${path}`);
+        if (rmExec.code !== 0) {
+            throw new Error(rmExec.stderr);
+        }
+    };
+    removeThumbnail = (thumbnailFileName) => {
+        if (!thumbnailFileName) {
+            return;
+        }
+        const path = `${this.thumbnailsDest}/${thumbnailFileName}`;
+        const rmExec = shell.exec(`rm ${path}`);
+        if (rmExec.code !== 0) {
+            throw new Error(rmExec.stderr);
+        }
+    };
+    removeSegments = (segmentsDirName) => {
+        if (!segmentsDirName) {
+            return;
+        }
+        const path = `${this.videoSegmentsDest}/${segmentsDirName}`;
+        const rmExec = shell.exec(`rm -r ${path}`);
+        if (rmExec.code !== 0) {
+            throw new Error(rmExec.stderr);
         }
     };
 }

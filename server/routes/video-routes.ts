@@ -6,3 +6,4 @@ const videoController = new VideoController()
 export const videoRouter = express.Router()
 
 videoRouter.post('/', videoController.uploadVideoFile, videoController.create)
+videoRouter.delete('/:id', videoController.delete)
