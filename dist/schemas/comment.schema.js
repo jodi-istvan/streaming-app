@@ -13,16 +13,13 @@ const commentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    createdAt: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
     likes: {
         type: Number,
         required: true,
         default: 0
     }
+}, {
+    timestamps: true
 });
 export const Comment = mongoose.model('Comment', commentSchema);
 //# sourceMappingURL=comment.schema.js.map

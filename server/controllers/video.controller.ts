@@ -95,7 +95,7 @@ export default class VideoController {
         mpdPath,
         createdBy
       })
-      return res.status(200).json(videoDoc);
+      return res.status(201).json(videoDoc);
     } catch (err) {
       console.error(err)
       return res.status(500).json({ message: 'Internal server error' })

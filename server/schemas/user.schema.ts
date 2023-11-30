@@ -46,6 +46,8 @@ const userSchema = new mongoose.Schema<IUser, UserModel, IUserMethods>({
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'CommentResponse'
   }
+}, {
+  timestamps: true
 })
 
 userSchema.pre('save', async function(next) {

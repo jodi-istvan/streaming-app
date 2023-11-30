@@ -35,17 +35,14 @@ const videoSchema = new mongoose.Schema<IVideo>({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  createdAt: {
-    type: Date,
-    required: true,
-    default: Date.now
-  },
   likes: {
     type: Number,
     required: true,
+    min: 0,
     default: 0
   }
 }, {
+  timestamps: true,
   toJSON: { virtuals: true },
   toObject: { virtuals: true }
 })

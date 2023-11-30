@@ -11,16 +11,13 @@ const commentResponseSchema = new mongoose.Schema<ICommentResponse>({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  createdAt: {
-    type: Date,
-    required: true,
-    default: Date.now
-  },
   likes: {
     type: Number,
     required: true,
     default: 0
   }
+}, {
+  timestamps: true
 })
 
 export const CommentResponse = mongoose.model<ICommentResponse>('CommentResponse', commentResponseSchema);
