@@ -88,7 +88,6 @@ export default class VideoController {
         title,
         description,
         duration,
-        videoFileId,
         thumbnailPath,
         mpdPath,
         createdBy
@@ -118,7 +117,6 @@ export default class VideoController {
       await this.model.findByIdAndDelete(id);
       return res.sendStatus(204);
     } catch (err) {
-      console.error(err)
       return res.status(500).json({ message: 'Internal server error' })
     }
   }

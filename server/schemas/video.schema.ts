@@ -16,19 +16,15 @@ const videoSchema = new mongoose.Schema<IVideo>({
     type: Number,
     required: true
   },
-  videoFileId: {
-    type: String,
-    required: true
-  },
   thumbnailPath: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   mpdPath: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   views: {
     type: Number,
@@ -54,6 +50,14 @@ const videoSchema = new mongoose.Schema<IVideo>({
     required: true,
     default: 0
   }
+}, {
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
+})
+
+videoSchema.virtual('videoFileId').get(function() {
+  const pathArray = this.mpdPath.split('/')
+  return pathArray[pathArray.length - 2]
 })
 
 export const Video = mongoose.model<IVideo>('Video', videoSchema)
