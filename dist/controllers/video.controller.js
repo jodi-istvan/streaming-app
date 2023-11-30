@@ -83,6 +83,10 @@ export default class VideoController {
             return res.status(500).json({ message: 'Internal server error' });
         }
     };
+    getVideoFileId = (videoDoc) => {
+        const pathArray = videoDoc.mpdPath.split('/');
+        return pathArray[pathArray.length - 2];
+    };
     delete = async (req, res) => {
         const { id } = req.params;
         if (!id) {
@@ -93,8 +97,8 @@ export default class VideoController {
             if (!videoDoc) {
                 return res.status(404).json({ message: 'Video not found' });
             }
-            this.removeSegments(videoDoc.videoFileId);
-            this.removeThumbnail(`${videoDoc.videoFileId}.jpg`);
+            this.removeSegments(this.getVideoFileId(videoDoc));
+            this.removeThumbnail(`${this.getVideoFileId(videoDoc)}.jpg`);
             await this.model.findByIdAndDelete(id);
             return res.sendStatus(204);
         }

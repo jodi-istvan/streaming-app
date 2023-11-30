@@ -3,6 +3,7 @@ import multer from 'multer'
 import shell from 'shelljs'
 
 import { Video } from '../schemas/video.schema.js';
+import IVideo from '../models/video.model.js';
 
 export default class VideoController {
   private readonly model = Video
@@ -99,6 +100,11 @@ export default class VideoController {
     }
   }
   
+  private readonly getVideoFileId = (videoDoc: IVideo) => {
+    const pathArray = videoDoc.mpdPath.split('/')
+    return pathArray[pathArray.length - 2]
+  }
+  
   public readonly delete = async (req: Request, res: Response) => {
     const { id } = req.params
     if (!id) {
@@ -111,8 +117,8 @@ export default class VideoController {
         return res.status(404).json({ message: 'Video not found' })
       }
       
-      this.removeSegments(videoDoc.videoFileId)
-      this.removeThumbnail(`${videoDoc.videoFileId}.jpg`)
+      this.removeSegments(this.getVideoFileId(videoDoc))
+      this.removeThumbnail(`${this.getVideoFileId(videoDoc)}.jpg`)
       
       await this.model.findByIdAndDelete(id);
       return res.sendStatus(204);
