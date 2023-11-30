@@ -25,6 +25,18 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0,
         min: 0,
+    },
+    likedVideos: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Video'
+    },
+    likedComments: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Comment'
+    },
+    likedCommentResponses: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'CommentResponse'
     }
 });
 userSchema.pre('save', async function (next) {

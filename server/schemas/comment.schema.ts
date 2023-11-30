@@ -24,11 +24,6 @@ const commentSchema = new mongoose.Schema<IComment>({
     type: Number,
     required: true,
     default: 0
-  },
-  dislikes: {
-    type: Number,
-    required: true,
-    default: 0
   }
 });
 

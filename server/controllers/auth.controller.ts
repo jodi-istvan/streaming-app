@@ -71,7 +71,7 @@ export default class AuthController {
     
     try {
       const userId = this.verifyToken(token).id
-      const user = await this.user.findById(userId).select('+password')
+      const user = await this.user.findById(userId)
       req.user = user;
       return next();
     } catch (err) {

@@ -20,11 +20,6 @@ const commentResponseSchema = new mongoose.Schema<ICommentResponse>({
     type: Number,
     required: true,
     default: 0
-  },
-  dislikes: {
-    type: Number,
-    required: true,
-    default: 0
   }
 })
 

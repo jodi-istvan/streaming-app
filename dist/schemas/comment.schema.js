@@ -22,11 +22,6 @@ const commentSchema = new mongoose.Schema({
         type: Number,
         required: true,
         default: 0
-    },
-    dislikes: {
-        type: Number,
-        required: true,
-        default: 0
     }
 });
 export const Comment = mongoose.model('Comment', commentSchema);

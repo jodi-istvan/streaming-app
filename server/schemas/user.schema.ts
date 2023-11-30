@@ -33,6 +33,18 @@ const userSchema = new mongoose.Schema<IUser, UserModel, IUserMethods>({
     type: Number,
     default: 0,
     min: 0,
+  },
+  likedVideos: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Video'
+  },
+  likedComments: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Comment'
+  },
+  likedCommentResponses: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'CommentResponse'
   }
 })
 

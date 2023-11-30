@@ -42,11 +42,6 @@ const videoSchema = new mongoose.Schema({
         type: Number,
         required: true,
         default: 0
-    },
-    dislikes: {
-        type: Number,
-        required: true,
-        default: 0
     }
 }, {
     toJSON: { virtuals: true },

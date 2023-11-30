@@ -2,6 +2,7 @@ import IUser from '../../models/user.model.js';
 
 export {}
 
+// Extend Request interface globally with file
 declare global {
   namespace Express {
     export interface Request {
