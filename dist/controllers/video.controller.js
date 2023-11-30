@@ -83,10 +83,6 @@ export default class VideoController {
             return res.status(500).json({ message: 'Internal server error' });
         }
     };
-    getVideoFileId = (videoDoc) => {
-        const pathArray = videoDoc.mpdPath.split('/');
-        return pathArray[pathArray.length - 2];
-    };
     delete = async (req, res) => {
         const { id } = req.params;
         if (!id) {
@@ -105,6 +101,10 @@ export default class VideoController {
         catch (err) {
             return res.status(500).json({ message: 'Internal server error' });
         }
+    };
+    getVideoFileId = (videoDoc) => {
+        const pathArray = videoDoc.mpdPath.split('/');
+        return pathArray[pathArray.length - 2];
     };
     removeTmpVideo = (videoFileName) => {
         if (!videoFileName) {

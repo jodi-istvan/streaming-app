@@ -100,11 +100,6 @@ export default class VideoController {
     }
   }
   
-  private readonly getVideoFileId = (videoDoc: IVideo) => {
-    const pathArray = videoDoc.mpdPath.split('/')
-    return pathArray[pathArray.length - 2]
-  }
-  
   public readonly delete = async (req: Request, res: Response) => {
     const { id } = req.params
     if (!id) {
@@ -125,6 +120,11 @@ export default class VideoController {
     } catch (err) {
       return res.status(500).json({ message: 'Internal server error' })
     }
+  }
+  
+  private readonly getVideoFileId = (videoDoc: IVideo) => {
+    const pathArray = videoDoc.mpdPath.split('/')
+    return pathArray[pathArray.length - 2]
   }
   
   private readonly removeTmpVideo = (videoFileName: string): void => {

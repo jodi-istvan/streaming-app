@@ -10,14 +10,14 @@ import AuthController from './controllers/auth.controller.js';
 
 export const app: Express = express();
 
+const authController = new AuthController()
+
 app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
 app.use('/server/public', express.static(`${process.cwd()}/server/public`))
 
-app.use(AuthController.authenticate)
-
-app.use('/api/user', userRouter)
+app.use('/api/user', authController.authenticate, userRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/video', videoRouter)
 
