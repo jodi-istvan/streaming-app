@@ -1,8 +1,10 @@
 import multer from 'multer';
 import shell from 'shelljs';
 import { Video } from '../schemas/video.schema.js';
+import { User } from '../schemas/user.schema.js';
 export default class VideoController {
     model = Video;
+    user = User;
     videoUploadFileDest = `${process.cwd()}/server/tmp/videos`;
     videoSegmentsDest = `${process.cwd()}/server/public/video_segments`;
     thumbnailsDest = `${process.cwd()}/server/public/thumbnails`;
@@ -97,6 +99,46 @@ export default class VideoController {
             this.removeThumbnail(`${this.getVideoFileId(videoDoc)}.jpg`);
             await this.model.findByIdAndDelete(id);
             return res.sendStatus(204);
+        }
+        catch (err) {
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+    };
+    patchLikeVideo = async (req, res) => {
+        const { id } = req.params;
+        const action = req.body.action;
+        const { user } = req;
+        if (!id) {
+            return res.status(400).json({ message: 'Video id missing from url params' });
+        }
+        if (!action) {
+            return res.status(400).json({ message: 'Action missing from request body' });
+        }
+        if (action !== 'ADD' && action !== 'REMOVE') {
+            return res.status(400).json({ message: 'Action can be either "ADD" or "REMOVE"' });
+        }
+        try {
+            const videoDoc = await this.model.findById(id);
+            if (!videoDoc) {
+                return res.status(404).json({ message: 'Video not found' });
+            }
+            const userLikedVideo = user.likedVideos.includes(videoDoc._id);
+            if (action === 'ADD') {
+                if (userLikedVideo) {
+                    return res.status(304).json({ message: 'User already liked this video' });
+                }
+                videoDoc.likes++;
+            }
+            else {
+                if (!userLikedVideo) {
+                    return res.status(304).json({ message: 'User has not liked this video yet' });
+                }
+                videoDoc.likes--;
+            }
+            const updatedVideoDoc = await videoDoc.save();
+            const queryAction = action === 'ADD' ? '$push' : '$pull';
+            await this.user.findByIdAndUpdate(user._id, { [queryAction]: { likedVideos: videoDoc._id } });
+            return res.status(204).json(updatedVideoDoc);
         }
         catch (err) {
             return res.status(500).json({ message: 'Internal server error' });

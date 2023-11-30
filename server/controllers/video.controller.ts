@@ -3,10 +3,12 @@ import multer from 'multer'
 import shell from 'shelljs'
 
 import { Video } from '../schemas/video.schema.js';
+import { User } from '../schemas/user.schema.js';
 import IVideo from '../models/video.model.js';
 
 export default class VideoController {
   private readonly model = Video
+  private readonly user = User
   private readonly videoUploadFileDest = `${process.cwd()}/server/tmp/videos`
   private readonly videoSegmentsDest = `${process.cwd()}/server/public/video_segments`
   private readonly thumbnailsDest = `${process.cwd()}/server/public/thumbnails`
@@ -117,6 +119,48 @@ export default class VideoController {
       
       await this.model.findByIdAndDelete(id);
       return res.sendStatus(204);
+    } catch (err) {
+      return res.status(500).json({ message: 'Internal server error' })
+    }
+  }
+  
+  public readonly patchLikeVideo = async (req: Request, res: Response) => {
+    const { id } = req.params
+    const action: 'ADD' | 'REMOVE' = req.body.action
+    const { user } = req
+    if (!id) {
+      return res.status(400).json({ message: 'Video id missing from url params' })
+    }
+    if (!action) {
+      return res.status(400).json({ message: 'Action missing from request body' })
+    }
+    if (action !== 'ADD' && action !== 'REMOVE') {
+      return res.status(400).json({ message: 'Action can be either "ADD" or "REMOVE"' })
+    }
+    
+    try {
+      const videoDoc = await this.model.findById(id)
+      if (!videoDoc) {
+        return res.status(404).json({ message: 'Video not found' })
+      }
+      
+      const userLikedVideo = user.likedVideos.includes(videoDoc._id)
+      if (action === 'ADD') {
+        if (userLikedVideo) {
+          return res.status(304).json({ message: 'User already liked this video' })
+        }
+        videoDoc.likes++
+      } else {
+        if (!userLikedVideo) {
+          return res.status(304).json({ message: 'User has not liked this video yet' })
+        }
+        videoDoc.likes--
+      }
+      const updatedVideoDoc = await videoDoc.save()
+      const queryAction = action === 'ADD' ? '$push' : '$pull'
+      await this.user.findByIdAndUpdate(user._id, { [queryAction]: { likedVideos: videoDoc._id } })
+  
+      return res.status(204).json(updatedVideoDoc);
     } catch (err) {
       return res.status(500).json({ message: 'Internal server error' })
     }

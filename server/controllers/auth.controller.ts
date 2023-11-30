@@ -72,6 +72,10 @@ export default class AuthController {
     try {
       const userId = this.verifyToken(token).id
       const user = await this.user.findById(userId)
+      if (!user) {
+        return res.status(403).json({ message: 'User does not exist' })
+      }
+      
       req.user = user;
       return next();
     } catch (err) {
