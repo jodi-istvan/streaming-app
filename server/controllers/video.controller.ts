@@ -160,7 +160,7 @@ export default class VideoController {
       const queryAction = action === 'ADD' ? '$push' : '$pull'
       await this.user.findByIdAndUpdate(user._id, { [queryAction]: { likedVideos: videoDoc._id } })
   
-      return res.status(204).json(updatedVideoDoc);
+      return res.status(200).json(updatedVideoDoc);
     } catch (err) {
       return res.status(500).json({ message: 'Internal server error' })
     }
