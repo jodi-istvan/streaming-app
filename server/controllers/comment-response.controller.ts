@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
+import { CommentResponse } from '../schemas/comment-response.schema.js';
 import { Comment } from '../schemas/comment.schema.js';
-import { Video } from '../schemas/video.schema.js';
 
-export default class CommentController {
-  private readonly model = Comment
-  private readonly video = Video
+export default class CommentResponseController {
+  private readonly model = CommentResponse
+  private readonly comment = Comment
   
   public readonly getAll = async (req: Request, res: Response) => {
     try {
@@ -17,22 +17,22 @@ export default class CommentController {
   }
   
   public readonly create = async (req: Request, res: Response) => {
-    const { body, video } = req.body
+    const { body, comment } = req.body
     const { user } = req
-    if (!body || !video) {
+    if (!body || !comment) {
       return res.status(400).json({ message: 'Missing body or video from request body'})
     }
-    if (!(await this.video.exists({ _id: video }))) {
-      return res.status(400).json({ message: 'Video provided in body does not exist'})
+    if (!(await this.comment.exists({ _id: comment }))) {
+      return res.status(400).json({ message: 'Comment provided in body does not exist'})
     }
     
     try {
-      const commentDoc = await this.model.create({
+      const commentResponseDoc = await this.model.create({
         body,
-        video,
+        comment,
         createdBy: user._id
       })
-      return res.status(201).json(commentDoc)
+      return res.status(201).json(commentResponseDoc)
     } catch (err) {
       console.error(err)
       return res.sendStatus(500)
@@ -42,22 +42,22 @@ export default class CommentController {
   public readonly patch = async (req: Request, res: Response) => {
     const { id } = req.params
     if (!id) {
-      return res.status(400).json({ message: 'Comment id missing from url params' })
+      return res.status(400).json({ message: 'CommentResponse id missing from url params' })
     }
-    delete req.body.video
+    delete req.body.comment
     delete req.body.likes
     delete req.body.createdBy
     delete req.body.createdAt
     delete req.body.updatedAt
-
+    
     try {
-      const commentDoc = await this.model.findById(id)
-      if (!commentDoc) {
-        return res.status(404).json({ message: 'Comment does not exist' })
+      const commentResponseDoc = await this.model.findById(id)
+      if (!commentResponseDoc) {
+        return res.status(404).json({ message: 'CommentResponse does not exist' })
       }
       
-      const updatedCommentDoc = await this.model.findByIdAndUpdate(id, req.body, { new: true })
-      return res.status(200).json(updatedCommentDoc)
+      const updatedCommentResponseDoc = await this.model.findByIdAndUpdate(id, req.body, { new: true })
+      return res.status(200).json(updatedCommentResponseDoc)
     } catch (err) {
       console.error(err)
       return res.sendStatus(500)

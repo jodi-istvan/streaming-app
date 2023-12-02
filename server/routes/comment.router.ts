@@ -9,4 +9,4 @@ export const commentRouter = express.Router()
 
 commentRouter.route('/').get(commentController.getAll)
 commentRouter.route('/').post(authController.authenticate, commentController.create)
-commentRouter.route('/:id').put(authController.authenticate, commentController.update)
+commentRouter.route('/:id').patch(authController.authenticate, commentController.patch)
