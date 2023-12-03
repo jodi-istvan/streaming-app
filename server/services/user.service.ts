@@ -4,6 +4,10 @@ import { User } from '../schemas/user.schema.js';
 export default class UserService extends BaseService {
   protected model = User
   
+  public create = (doc) => {
+    return this.model.create(doc)
+  }
+  
   public readonly findByEmail = (email: string) => {
     return this.model.findOne({ email }).select('+password');
   }

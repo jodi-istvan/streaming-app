@@ -19,24 +19,24 @@ const server = app.listen(port, () => {
   console.log(`App listening to changes on port ${port}`)
 });
 
-process.on('unhandledRejection', (reason, promise) => {
-  console.error(
-    `Unhandled Rejection at: ${promise}\n` +
-    `Rejection Reason: ${reason}`
-  )
-  server.close(() => {
-    // This way we only shut the app down after server closes: finishes requests etc...
-    process.exit(1)
-  })
-})
-
-process.on('uncaughtException', (error, origin) => {
-  console.error(
-    `Caught exception: ${error}\n` +
-    `Exception origin: ${origin}`
-  )
-  server.close(() => {
-    // This way we only shut the app down after server closes: finishes requests etc...
-    process.exit(1)
-  })
-})
+// process.on('unhandledRejection', (reason, promise) => {
+//   console.error(
+//     `Unhandled Rejection at: ${promise}\n` +
+//     `Rejection Reason: ${reason}`
+//   )
+//   server.close(() => {
+//     // This way we only shut the app down after server closes: finishes requests etc...
+//     process.exit(1)
+//   })
+// })
+//
+// process.on('uncaughtException', (error, origin) => {
+//   console.error(
+//     `Caught exception: ${error}\n` +
+//     `Exception origin: ${origin}`
+//   )
+//   server.close(() => {
+//     // This way we only shut the app down after server closes: finishes requests etc...
+//     process.exit(1)
+//   })
+// })

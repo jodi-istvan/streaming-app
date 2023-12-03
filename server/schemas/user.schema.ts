@@ -2,9 +2,11 @@ import mongoose, { Model } from 'mongoose';
 import validator from 'validator';
 import bcryptjs from 'bcryptjs';
 import IUser from '../models/user.model.js';
+import AuthService from '../services/auth.service.js';
 
 interface IUserMethods {
-  correctPassword: (candidatePassword: string, userPassword: string) => Promise<boolean>
+  correctPassword: (candidatePassword: string, userPassword: string) => Promise<boolean>;
+  createSignupConfirmToken: () => string;
 }
 
 type UserModel = Model<IUser, {}, IUserMethods>
@@ -33,6 +35,16 @@ const userSchema = new mongoose.Schema<IUser, UserModel, IUserMethods>({
     type: Number,
     default: 0,
     min: 0,
+  },
+  active: {
+    type: Boolean,
+    default: false,
+    required: true,
+    select: false,
+  },
+  signupConfirmToken: {
+    type: String,
+    select: false,
   },
   likedVideos: {
     type: [mongoose.Schema.Types.ObjectId],
