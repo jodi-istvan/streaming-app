@@ -8,8 +8,12 @@ export default class UserService extends BaseService {
     return this.model.create(doc)
   }
   
+  public readonly findById = (id: string) => {
+    return this.model.findById(id).select('+active');
+  }
+  
   public readonly findByEmail = (email: string) => {
-    return this.model.findOne({ email }).select('+password');
+    return this.model.findOne({ email }).select('+password +active');
   }
   
   public readonly likeVideo = (userId: string, videoId: string) => {
