@@ -1,19 +1,9 @@
-import * as jwt from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
-import { User } from '../schemas/user.schema.js';
+import UserService from '../services/user.service.js';
+import AuthService from '../services/auth.service.js';
 
 export default class AuthController {
-  private readonly user = User
-  
-  private readonly signToken = (id: string) => {
-    return jwt.default.sign({ id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN
-    });
-  }
-  
-  private readonly verifyToken = (token: string) => {
-    return jwt.default.verify(token, process.env.JWT_SECRET)
-  }
+  private readonly userService = new UserService()
   
   public readonly signup = async (req: Request, res: Response) => {
     const { name, password, email } = req.body;
@@ -21,10 +11,10 @@ export default class AuthController {
       return res.status(400).json({ message: 'Body must contain name, password and email' });
     }
     try {
-      const newUser = await this.user.create({ name, password, email });
-      const token = this.signToken(newUser._id)
+      const newUser = (await this.userService.create({ name, password, email })).toObject();
+      const token = AuthService.signToken(newUser._id)
       delete newUser.password
-      
+  
       return res.status(201).json({
         user: newUser,
         token
@@ -44,7 +34,7 @@ export default class AuthController {
       return res.status(400).json({ message: 'Body must contain email and password' })
     }
     
-    const user = await User.findOne({ email }).select('+password');
+    const user = await this.userService.findByEmail(email)
     if (!user) {
       return res.status(404).json({ message: 'Account with given email address not found' })
     }
@@ -54,7 +44,7 @@ export default class AuthController {
       return res.status(401).json({ message: 'Incorrect email or password' })
     }
     
-    const token = this.signToken(user._id);
+    const token = AuthService.signToken(user._id);
     return res.status(200).json(token);
   }
   
@@ -70,8 +60,8 @@ export default class AuthController {
     }
     
     try {
-      const userId = this.verifyToken(token).id
-      const user = await this.user.findById(userId)
+      const userId = AuthService.verifyToken(token).id
+      const user = await this.userService.findById(userId)
       if (!user) {
         return res.status(403).json({ message: 'User does not exist' })
       }
