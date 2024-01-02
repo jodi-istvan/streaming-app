@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import UserService from '../services/user.service.js';
 import AuthService from '../services/auth.service.js';
 import Mailer from '../utils/mailer.js';
+import moment from 'moment';
 
 export default class AuthController {
   private readonly userService = new UserService()
@@ -43,7 +44,7 @@ export default class AuthController {
 
     try {
       await AuthService.activateUser(token)
-      res.writeHead(301, { Location: 'http://localhost:8080' })
+      res.writeHead(301, { Location: 'http://localhost:4200' })
       
       return res.end()
     } catch (err) {
@@ -58,7 +59,7 @@ export default class AuthController {
       return res.status(400).json({ message: 'Body must contain email and password' })
     }
     
-    const user = await this.userService.findByEmail(email)
+    let user = await this.userService.findByEmail(email)
     if (!user) {
       return res.status(404).json({ message: 'Account with given email address not found' })
     }
@@ -72,7 +73,14 @@ export default class AuthController {
     }
     
     const token = AuthService.signJWTToken(user._id);
-    return res.status(200).json(token);
+    user = user.toObject();
+    delete user.password;
+    delete user.active;
+    return res.status(200).json({
+      token,
+      expiresAt: moment().add(AuthService.tokenExpiresIn.substring(0, AuthService.tokenExpiresIn.length - 1), 'd'),
+      user,
+    });
   }
   
   public readonly authenticate = async (req: Request, res: Response, next: NextFunction) => {

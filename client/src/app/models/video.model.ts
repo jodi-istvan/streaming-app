@@ -1,0 +1,13 @@
+import IAudit from './audit.model.js';
+import IUserFeedback from './user-feedback.model.js';
+import IComment from './comment.model.js';
+
+export default interface IVideo extends IAudit, IUserFeedback {
+  title: string;
+  description: string;
+  duration: number;
+  thumbnailPath: string;
+  mpdPath: string;
+  views: number;
+  comments: Array<IComment>,
+}

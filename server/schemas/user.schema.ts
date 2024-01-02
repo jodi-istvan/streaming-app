@@ -2,7 +2,6 @@ import mongoose, { Model } from 'mongoose';
 import validator from 'validator';
 import bcryptjs from 'bcryptjs';
 import IUser from '../models/user.model.js';
-import AuthService from '../services/auth.service.js';
 
 interface IUserMethods {
   correctPassword: (candidatePassword: string, userPassword: string) => Promise<boolean>;

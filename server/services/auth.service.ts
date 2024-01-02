@@ -2,11 +2,15 @@ import * as jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import { User } from '../schemas/user.schema.js';
 
-export default abstract class AuthService {
+export default class AuthService {
+  
+  public static get tokenExpiresIn(): string {
+    return process.env.JWT_EXPIRES_IN;
+  }
   
   public static readonly signJWTToken = (id: string) => {
     return jwt.default.sign({ id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN
+      expiresIn: AuthService.tokenExpiresIn
     });
   }
   
