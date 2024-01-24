@@ -7,6 +7,11 @@ import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { APIInterceptor } from './interceptors/api.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ClarityModule } from '@clr/angular';
+import { ClarityIcons, userIcon } from '@cds/core/icon';
+
+ClarityIcons.addIcons(userIcon);
 
 @NgModule({
   declarations: [
@@ -14,6 +19,8 @@ import { APIInterceptor } from './interceptors/api.interceptor';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ClarityModule,
     AppRoutingModule,
     SharedModule
   ],
