@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -7,31 +10,32 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
+          "prefix": "app",
           "style": "sass"
         }
       },
       "root": "",
-      "sourceRoot": "src",
+      "sourceRoot": "client/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/client",
-            "index": "src/index.html",
-            "main": "src/main.ts",
+            "index": "client/src/index.html",
+            "main": "client/src/main.ts",
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "client/tsconfig.app.json",
             "inlineStyleLanguage": "sass",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "client/src/favicon.ico",
+              "client/src/assets"
             ],
             "styles": [
               "node_modules/@clr/ui/clr-ui.min.css",
-              "src/styles.sass"
+              "client/src/styles.sass"
             ],
             "scripts": []
           },
@@ -90,12 +94,12 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "sass",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "client/src/favicon.ico",
+              "client/src/assets"
             ],
             "styles": [
               "node_modules/@clr/ui/clr-ui.min.css",
-              "src/styles.sass"
+              "client/src/styles.sass"
             ],
             "scripts": []
           }

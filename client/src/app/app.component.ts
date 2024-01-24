@@ -13,9 +13,9 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private videoService: VideoService
   ) {
-    // authService.login('admin32@gmail.com', 'admin2121').subscribe(res => {
-    //   console.log(res);
-    // })
+    authService.login('admin32@gmail.com', 'admin2121').subscribe(res => {
+      console.log(res);
+    })
     //
     // this.videoService.getById('656bd42d23884c9ba479a175').subscribe(video => {
     //   console.log(video);
