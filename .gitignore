@@ -2,6 +2,9 @@
 /dist
 /out-tsc
 /bazel-out
+**/dist
+/tmp
+/logs
 
 # Node
 /node_modules
