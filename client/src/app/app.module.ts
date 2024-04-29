@@ -8,10 +8,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { APIInterceptor } from './interceptors/api.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ClarityModule } from '@clr/angular';
-import { ClarityIcons, userIcon } from '@cds/core/icon';
-
-ClarityIcons.addIcons(userIcon);
+import { NavigationModule } from './components/navigation/navigation.module';
 
 @NgModule({
   declarations: [
@@ -20,10 +17,10 @@ ClarityIcons.addIcons(userIcon);
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ClarityModule,
     AppRoutingModule,
-    SharedModule
-  ],
+    SharedModule,
+    NavigationModule,
+],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

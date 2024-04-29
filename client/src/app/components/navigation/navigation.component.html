@@ -1,0 +1,88 @@
+<!-- Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid justify-content-between ps-0">
+        <!-- Left elements -->
+
+        <div class="d-flex">
+            <div class="bars-btn d-flex justify-content-center align-items-center">
+                <button type="button"
+                        class="btn btn-lg"
+                        [attr.aria-expanded]="!navigationSidebar.isCollapsed"
+                        (click)="navigationSidebar.toggle()"
+                >
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Brand -->
+            <a class="navbar-brand ms-4 d-flex align-items-center" href="#">
+                <img
+                    src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.webp"
+                    height="20"
+                    alt=""
+                    loading="lazy"
+                    style="margin-top: 2px;"
+                />
+            </a>
+        </div>
+        <!-- Left elements -->
+
+        <!-- Center elements -->
+        <ul class="navbar-nav flex-row d-none d-md-flex">
+            <!-- Search form -->
+            <form class="input-group w-auto my-auto d-none d-sm-flex">
+                <input
+                    autocomplete="off"
+                    type="search"
+                    class="form-control rounded"
+                    placeholder="Search"
+                    style="min-width: 250px;"
+                />
+                <span class="input-group-text border-0 d-none d-lg-flex"
+                ><i class="fas fa-search"></i
+                ></span>
+            </form>
+        </ul>
+        <!-- Center elements -->
+
+        <!-- Right elements -->
+        <ul class="navbar-nav flex-row">
+
+            <li class="nav-item d-flex align-items-center me-4">
+                <span class="position-relative">
+                    <i class="fas fa-bell fa-lg me-3 me-lg-1" style="color: white"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        99+
+                    </span>
+                </span>
+            </li>
+
+            <li ngbDropdown class="nav-item" display="dynamic" placement="bottom-end">
+                <button
+                    type="button"
+                    class="nav-link dropdown-toggle d-flex align-items-center"
+                    style="color: white"
+                    id="dropdownBasic1"
+                    ngbDropdownToggle
+                >
+                    <img
+                        src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
+                        class="rounded-circle"
+                        height="30"
+                        alt=""
+                        loading="lazy"
+                    />
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu">
+                    <button ngbDropdownItem>Action - 1</button>
+                    <button ngbDropdownItem>Another Action</button>
+                    <button ngbDropdownItem>Something else is here</button>
+                </div>
+            </li>
+        </ul>
+        <!-- Right elements -->
+    </div>
+</nav>
+
+<app-navigation-sidebar #navigationSidebar></app-navigation-sidebar>
+<!-- Navbar -->
