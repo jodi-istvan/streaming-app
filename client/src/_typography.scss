@@ -1,0 +1,60 @@
+$font-size-xs: 10px;
+$font-size-sm: 14px;
+$font-size-md: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 22px;
+
+$font-weight-light: 100;
+$font-weight-medium: 300;
+$font-weight-semi-bold: 400;
+$font-weight-bold: 600;
+$font-weight-heavy: 800;
+
+$font-color-white: #ffffff;
+$font-color-blue: #3ea6ff;
+
+.font__size--xs {
+  font-size: $font-size-xs;
+}
+.font__size--sm {
+  font-size: $font-size-sm;
+}
+.font__size--md {
+  font-size: $font-size-md;
+}
+.font__size--lg {
+  font-size: $font-size-lg;
+}
+.font__size--xl {
+  font-size: $font-size-xl;
+}
+
+.font__weight--light {
+  font-weight: $font-weight-light;
+}
+
+.font__weight--medium {
+  font-weight: $font-weight-medium;
+}
+
+.font__weight--semi-bold {
+  font-weight: $font-weight-semi-bold;
+}
+
+.font__weight--bold {
+  font-weight: $font-weight-bold;
+}
+
+.font__weight--heavy {
+  font-weight: $font-weight-heavy;
+}
+
+.font__color--white {
+  color: $font-color-white
+}
+
+.link {
+  font-weight: $font-weight-bold;
+  color: $font-color-blue;
+  text-decoration: none;
+}

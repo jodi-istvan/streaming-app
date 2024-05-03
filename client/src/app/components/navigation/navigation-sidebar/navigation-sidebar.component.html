@@ -1,48 +1,29 @@
-<div class="backdrop"></div>
-
-<div class="sidebar-mini position-fixed d-flex flex-column justify-content-start align-items-center bg-dark gap-1 px-1 py-2">
-    <button type="button"
-            class="btn btn-lg"
-            [attr.aria-expanded]="!isCollapsed"
-            (click)="collapse.toggle()"
-            *ngIf="overlayView"
-    >
-        <i class="fa fa-bars" style="color: white"></i>
-    </button>
-
-    <div class="sidebar-mini__item">
-        <button type="button" class="btn btn-lg">
+<div class="sidebar position-fixed d-flex flex-column justify-content-start align-items-center gap-1 px-1 py-2">
+    <div class="sidebar__item py-1">
+        <button type="button" class="btn btn-md">
             <i class="fa fa-home"></i>
-            <small>Home</small>
+            <span class="font__size--xs">Home</span>
         </button>
     </div>
 
-    <div class="sidebar-mini__item">
-        <button type="button" class="btn btn-lg">
+    <div class="sidebar__item py-1">
+        <button type="button" class="btn btn-md">
             <i class="fa fa-home"></i>
-            <small>Home</small>
+            <span class="font__size--xs">Home</span>
         </button>
     </div>
 
-    <div class="sidebar-mini__item">
-        <button type="button" class="btn btn-lg">
+    <div class="sidebar__item py-1">
+        <button type="button" class="btn btn-md">
             <i class="fa fa-home"></i>
-            <small>Home</small>
+            <span class="font__size--xs">Home</span>
         </button>
     </div>
 
-    <div class="sidebar-mini__item">
-        <button type="button" class="btn btn-lg">
+    <div class="sidebar__item py-1">
+        <button type="button" class="btn btn-md">
             <i class="fa fa-home"></i>
-            <small>Home</small>
+            <span class="font__size--xs">Home</span>
         </button>
-    </div>
-</div>
-
-<div class="sidebar position-absolute">
-    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" [horizontal]="true" [animation]="true" style="max-width: 300px">
-<!--        <div class="card" style="width: 300px">-->
-<!--            <div class="card-body">You can collapse horizontally this card by clicking Toggle</div>-->
-<!--        </div>-->
     </div>
 </div>

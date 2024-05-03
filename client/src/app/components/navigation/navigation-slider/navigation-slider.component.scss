@@ -1,0 +1,33 @@
+@import "client/src/_typography";
+
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.5;
+}
+
+.slider {
+  background-color: black;
+  width: 240px;
+  height: 100vh;
+  z-index: 1001;
+
+  &__content {
+    min-width: 240px;
+  }
+
+  &__btn {
+    text-decoration: none;
+    color: white;
+
+    &--active, &:hover {
+      background-color: #6b6b6b;
+      border-radius: 8px;
+    }
+  }
+
+  .section-border {
+    border-top: 1px solid #6b6b6b;
+  }
+}

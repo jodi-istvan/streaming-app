@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-navigation-sidebar',
@@ -7,14 +6,5 @@ import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./navigation-sidebar.component.scss']
 })
 export class NavigationSidebarComponent {
-  
-  @ViewChild('collapse')
-  private ngbCollapse: NgbCollapse;
-  
-  public isCollapsed = false;
-  public overlayView = false;
-  
-  public toggle(): void {
-    this.ngbCollapse.toggle()
-  }
+
 }

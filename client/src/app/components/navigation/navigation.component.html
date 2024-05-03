@@ -1,30 +1,13 @@
 <!-- Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid justify-content-between ps-0">
         <!-- Left elements -->
 
-        <div class="d-flex">
-            <div class="bars-btn d-flex justify-content-center align-items-center">
-                <button type="button"
-                        class="btn btn-lg"
-                        [attr.aria-expanded]="!navigationSidebar.isCollapsed"
-                        (click)="navigationSidebar.toggle()"
-                >
-                    <i class="fa fa-bars"></i>
-                </button>
-            </div>
+        <app-navigation-logo
+                (onMenuBtnClick)="sliderComponent.toggle()"
+                [ariaExpanded]="!sliderComponent.isCollapsed"
+        ></app-navigation-logo>
 
-            <!-- Brand -->
-            <a class="navbar-brand ms-4 d-flex align-items-center" href="#">
-                <img
-                    src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.webp"
-                    height="20"
-                    alt=""
-                    loading="lazy"
-                    style="margin-top: 2px;"
-                />
-            </a>
-        </div>
         <!-- Left elements -->
 
         <!-- Center elements -->
@@ -46,7 +29,7 @@
         <!-- Center elements -->
 
         <!-- Right elements -->
-        <ul class="navbar-nav flex-row">
+        <ul class="navbar-nav flex-row pe-4">
 
             <li class="nav-item d-flex align-items-center me-4">
                 <span class="position-relative">
@@ -62,7 +45,6 @@
                     type="button"
                     class="nav-link dropdown-toggle d-flex align-items-center"
                     style="color: white"
-                    id="dropdownBasic1"
                     ngbDropdownToggle
                 >
                     <img
@@ -73,10 +55,66 @@
                         loading="lazy"
                     />
                 </button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu">
-                    <button ngbDropdownItem>Action - 1</button>
-                    <button ngbDropdownItem>Another Action</button>
-                    <button ngbDropdownItem>Something else is here</button>
+                <div ngbDropdownMenu class="dropdown-menu">
+                    <div class="dropdown-section-bordered p-3 pt-0">
+                        <img
+                            src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
+                            class="rounded-circle me-4 mt-3"
+                            height="50"
+                            alt=""
+                            loading="lazy"
+                        />
+                        <div class="d-inline-flex flex-column justify-content-start align-items-start">
+                            <span class="font__size--md font__weight--bold font__color--white">John Smith</span>
+                            <a class="link font__size--sm" href="#">View channel</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown-section-bordered py-2">
+                        <button class="py-2" ngbDropdownItem>
+                            <i class="fa fa-home me-3"></i>
+                            <span>Action</span>
+                        </button>
+                        <button class="py-2" ngbDropdownItem>
+                            <i class="fa fa-home me-3"></i>
+                            <span>Action</span>
+                        </button>
+                        <button class="py-2" ngbDropdownItem>
+                            <i class="fa fa-home me-3"></i>
+                            <span>Action</span>
+                        </button>
+                    </div>
+
+                    <div class="dropdown-section-bordered py-2">
+                        <button class="py-2" ngbDropdownItem>
+                            <i class="fa fa-home me-3"></i>
+                            <span>Action</span>
+                        </button>
+                        <button class="py-2" ngbDropdownItem>
+                            <i class="fa fa-home me-3"></i>
+                            <span>Action</span>
+                        </button>
+                        <button class="py-2" ngbDropdownItem>
+                            <i class="fa fa-home me-3"></i>
+                            <span>Action</span>
+                        </button>
+                    </div>
+
+                    <div class="py-2">
+                        <button class="py-2" ngbDropdownItem>
+                            <i class="fa fa-home me-3"></i>
+                            <span>Action</span>
+                        </button>
+                        <button class="py-2" ngbDropdownItem>
+                            <i class="fa fa-home me-3"></i>
+                            <span>Action</span>
+                        </button>
+                        <button class="py-2" ngbDropdownItem>
+                            <i class="fa fa-home me-3"></i>
+                            <span>Action</span>
+                        </button>
+                    </div>
+
                 </div>
             </li>
         </ul>
@@ -84,5 +122,9 @@
     </div>
 </nav>
 
-<app-navigation-sidebar #navigationSidebar></app-navigation-sidebar>
+<div class="d-none d-md-block">
+    <app-navigation-sidebar></app-navigation-sidebar>
+</div>
 <!-- Navbar -->
+
+<app-navigation-slider #sliderComponent></app-navigation-slider>

@@ -1,37 +1,24 @@
-.backdrop {
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-  opacity: 0.3;
-  position: absolute;
-  display: none;
-}
+@import "client/src/_typography";
 
-.sidebar-mini {
-  width: 100px;
+.sidebar {
+  background-color: black;
+  width: 64px;
   height: 100vh;
 
   &__item {
     border-radius: 16px;
+
     &:hover {
-      background-color: #266ab7;
+      background-color: #6b6b6b;
     }
     * {
       color: white;
     }
     small {
-      font-size: 0.6em;
+      font-size: $font-size-sm;
       display: block;
-      font-weight: 200;
-      margin-top: 2px;
+      font-weight: 300;
+      margin-top: 4px;
     }
-  }
-}
-
-.sidebar {
-  height: 100vh;
-
-  &__content {
-
   }
 }

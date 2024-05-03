@@ -1,0 +1,147 @@
+<div *ngIf="!isCollapsed" class="backdrop position-absolute d-md-none" (click)="toggle()"></div>
+
+<div
+    class="slider position-absolute top-0 start-0"
+    #collapse="ngbCollapse"
+    [(ngbCollapse)]="isCollapsed"
+    [horizontal]="true"
+    [animation]="animationEnabled"
+>
+    <div class="py-2">
+        <app-navigation-logo
+                (onMenuBtnClick)="collapse.toggle()"
+                [ariaExpanded]="!isCollapsed"
+        ></app-navigation-logo>
+    </div>
+
+    <div class="h-100 w-100 slider__content">
+
+        <!-- First section -->
+        <div class="p-2">
+
+            <!-- Overview -->
+            <div class="d-flex flex-column pb-2">
+                <a href="#" role="button" class="slider__btn font__size--sm slider__btn--active px-3 py-2">
+                    <i class="fa fa-home pe-4"></i>
+                    <span>Home</span>
+                </a>
+                <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
+                    <i class="fa fa-home pe-4"></i>
+                    <span>Shorts</span>
+                </a>
+                <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
+                    <i class="fa fa-home pe-4"></i>
+                    <span>Subscriptions</span>
+                </a>
+            </div>
+
+            <!-- You -->
+            <div class="d-flex flex-column section-border pt-2">
+                <a href="#" role="button" class="slider__btn font__size--md px-3 py-2">
+                    <span class="me-3">You</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+                <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
+                    <i class="fa fa-home pe-4"></i>
+                    <span>My channel</span>
+                </a>
+                <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
+                    <i class="fa fa-home pe-4"></i>
+                    <span>History</span>
+                </a>
+                <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
+                    <i class="fa fa-home pe-4"></i>
+                    <span>Playlists</span>
+                </a>
+                <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
+                    <i class="fa fa-home pe-4"></i>
+                    <span>My videos</span>
+                </a>
+                <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
+                    <i class="fa fa-home pe-4"></i>
+                    <span>Watch list</span>
+                </a>
+                <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
+                    <i class="fa fa-home pe-4"></i>
+                    <span>Liked videos</span>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Second section -->
+        <div class="p-2 section-border">
+
+            <!-- Subscriptions -->
+            <div class="d-flex flex-column">
+                <a href="#" role="button" class="slider__btn font__size--md px-3 py-2">
+                    <span class="font__weight--bold font__size--md">Subscriptions</span>
+                </a>
+
+                <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
+                    <img
+                        src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
+                        class="rounded-circle me-4"
+                        height="24"
+                        alt=""
+                        loading="lazy"
+                    />
+                    <span>Channel #1</span>
+                </a>
+                <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
+                    <img
+                        src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
+                        class="rounded-circle me-4"
+                        height="24"
+                        alt=""
+                        loading="lazy"
+                    />
+                    <span>Channel #2</span>
+                </a>
+                <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
+                    <img
+                        src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
+                        class="rounded-circle me-4"
+                        height="24"
+                        alt=""
+                        loading="lazy"
+                    />
+                    <span>Channel #3</span>
+                </a>
+                <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
+                    <img
+                        src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
+                        class="rounded-circle me-4"
+                        height="24"
+                        alt=""
+                        loading="lazy"
+                    />
+                    <span>Channel #4</span>
+                </a>
+                <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
+                    <img
+                        src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
+                        class="rounded-circle me-4"
+                        height="24"
+                        alt=""
+                        loading="lazy"
+                    />
+                    <span>Channel #5</span>
+                </a>
+                <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
+                    <img
+                        src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
+                        class="rounded-circle me-4"
+                        height="24"
+                        alt=""
+                        loading="lazy"
+                    />
+                    <span>Channel #6</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>

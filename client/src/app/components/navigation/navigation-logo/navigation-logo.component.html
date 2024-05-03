@@ -1,0 +1,21 @@
+<div class="d-flex">
+    <div class="bars-btn d-flex justify-content-center align-items-center">
+        <button type="button"
+                class="btn btn-lg"
+                [attr.aria-expanded]="ariaExpanded"
+                (click)="onMenuBtnClick.emit()"
+        >
+            <i class="fa fa-bars"></i>
+        </button>
+    </div>
+
+    <a class="navbar-brand ms-4 d-flex align-items-center" href="#">
+        <img
+                src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.webp"
+                height="20"
+                alt=""
+                loading="lazy"
+                style="margin-top: 2px;"
+        />
+    </a>
+</div>

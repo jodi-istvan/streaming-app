@@ -1,7 +1,24 @@
-.bars-btn {
-  width: 100px;
+@import "client/src/_typography";
 
-  i {
+.navbar {
+  background-color: black;
+
+  .dropdown-menu {
+    background-color: #262626;
+    border: none;
+    width: 300px;
+  }
+
+  .dropdown-item {
     color: white;
+    font-size: $font-size-sm;
+
+     &:hover {
+       background-color: #6b6b6b;
+     }
+  }
+
+  .dropdown-section-bordered {
+    border-bottom: 1px solid #6b6b6b;
   }
 }
