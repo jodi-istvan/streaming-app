@@ -1,4 +1,7 @@
-<div class="sidebar position-fixed d-flex flex-column justify-content-start align-items-center gap-1 px-1 py-2">
+<div
+    class="sidebar position-fixed d-flex flex-column justify-content-start align-items-center gap-1 px-1 py-2"
+    [ngStyle]="{ 'top.px': navbarHeight }"
+>
     <div class="sidebar__item py-1">
         <button type="button" class="btn btn-md">
             <i class="fa fa-home"></i>
@@ -8,22 +11,22 @@
 
     <div class="sidebar__item py-1">
         <button type="button" class="btn btn-md">
-            <i class="fa fa-home"></i>
-            <span class="font__size--xs">Home</span>
+            <i class="fa fa-regular fa-bolt"></i>
+            <span class="font__size--xs">Shorts</span>
         </button>
     </div>
 
     <div class="sidebar__item py-1">
         <button type="button" class="btn btn-md">
-            <i class="fa fa-home"></i>
-            <span class="font__size--xs">Home</span>
+            <i class="fa fa-solid fa-layer-group"></i>
+            <span class="font__size--xs">Subscriptions</span>
         </button>
     </div>
 
     <div class="sidebar__item py-1">
         <button type="button" class="btn btn-md">
-            <i class="fa fa-home"></i>
-            <span class="font__size--xs">Home</span>
+            <i class="fa fa-solid fa-clapperboard"></i>
+            <span class="font__size--xs">You</span>
         </button>
     </div>
 </div>

@@ -1,7 +1,7 @@
 <div *ngIf="!isCollapsed" class="backdrop position-absolute d-md-none" (click)="toggle()"></div>
 
 <div
-    class="slider position-absolute top-0 start-0"
+    class="slider position-absolute top-0 start-0 bg-dark"
     #collapse="ngbCollapse"
     [(ngbCollapse)]="isCollapsed"
     [horizontal]="true"
@@ -22,15 +22,15 @@
             <!-- Overview -->
             <div class="d-flex flex-column pb-2">
                 <a href="#" role="button" class="slider__btn font__size--sm slider__btn--active px-3 py-2">
-                    <i class="fa fa-home pe-4"></i>
+                    <i class="fa fa-fw fa-home me-4"></i>
                     <span>Home</span>
                 </a>
                 <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
-                    <i class="fa fa-home pe-4"></i>
+                    <i class="fa fa-fw fa-regular fa-bolt me-4"></i>
                     <span>Shorts</span>
                 </a>
                 <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
-                    <i class="fa fa-home pe-4"></i>
+                    <i class="fa fa-fw fa-solid fa-layer-group me-4"></i>
                     <span>Subscriptions</span>
                 </a>
             </div>
@@ -39,31 +39,31 @@
             <div class="d-flex flex-column section-border pt-2">
                 <a href="#" role="button" class="slider__btn font__size--md px-3 py-2">
                     <span class="me-3">You</span>
-                    <i class="fa-solid fa-chevron-right"></i>
+                    <i class="fa fa-solid fa-chevron-right"></i>
                 </a>
 
                 <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
-                    <i class="fa fa-home pe-4"></i>
+                    <i class="fa fa-fw fa-regular fa-id-badge me-4"></i>
                     <span>My channel</span>
                 </a>
                 <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
-                    <i class="fa fa-home pe-4"></i>
+                    <i class="fa fa-fw fa-solid fa-clock-rotate-left me-4"></i>
                     <span>History</span>
                 </a>
                 <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
-                    <i class="fa fa-home pe-4"></i>
+                    <i class="fa fa-fw fa-solid fa-forward-fast me-4"></i>
                     <span>Playlists</span>
                 </a>
                 <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
-                    <i class="fa fa-home pe-4"></i>
+                    <i class="fa fa-fw fa-solid fa-film me-4"></i>
                     <span>My videos</span>
                 </a>
                 <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
-                    <i class="fa fa-home pe-4"></i>
+                    <i class="fa fa-fw fa-regular fa-rectangle-list me-4"></i>
                     <span>Watch list</span>
                 </a>
                 <a href="#" role="button" class="slider__btn font__size--sm px-3 py-2">
-                    <i class="fa fa-home pe-4"></i>
+                    <i class="fa fa-fw fa-solid fa-thumbs-up me-4"></i>
                     <span>Liked videos</span>
                 </a>
             </div>

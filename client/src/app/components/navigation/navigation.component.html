@@ -1,5 +1,5 @@
 <!-- Navbar-->
-<nav class="navbar navbar-expand-lg">
+<nav #navbar class="navbar navbar-expand-lg position-fixed top-0 w-100">
     <div class="container-fluid justify-content-between ps-0">
         <!-- Left elements -->
 
@@ -21,7 +21,7 @@
                     placeholder="Search"
                     style="min-width: 250px;"
                 />
-                <span class="input-group-text border-0 d-none d-lg-flex"
+                <span class="input-group-text border-0 d-flex"
                 ><i class="fas fa-search"></i
                 ></span>
             </form>
@@ -123,7 +123,7 @@
 </nav>
 
 <div class="d-none d-md-block">
-    <app-navigation-sidebar></app-navigation-sidebar>
+    <app-navigation-sidebar [navbarHeight]="navbarHeight"></app-navigation-sidebar>
 </div>
 <!-- Navbar -->
 
