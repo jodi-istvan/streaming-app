@@ -1,5 +1,6 @@
-import { EventEmitter, Inject, Injectable, OnInit } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 
 export enum ViewportBreakpoints {
   XS = 0,
@@ -13,47 +14,57 @@ export enum ViewportBreakpoints {
 @Injectable({
   providedIn: 'root'
 })
-export class ViewportService implements OnInit {
+export class ViewportService {
   
-  public screenWidth$: EventEmitter<number> = new EventEmitter<number>();
-  public screenHeight$: EventEmitter<number> = new EventEmitter<number>();
-  public breakpoint$: EventEmitter<number> = new EventEmitter<number>();
+  public screenWidth$: ReplaySubject<number> = new ReplaySubject<number>();
+  public screenHeight$: ReplaySubject<number> = new ReplaySubject<number>();
+  public breakpoint$: ReplaySubject<number> = new ReplaySubject<number>();
   
   private window: Window;
   
   constructor(@Inject(DOCUMENT) private _document: Document) {
     this.window = _document.defaultView;
-    this.window.addEventListener('resize', () => {
-      this.setScreenWidth();
-      this.setScreenHeight();
-    })
-  }
-  
-  ngOnInit() {
-    this.setScreenWidth();
-    this.setScreenHeight();
-  }
-  
-  private setScreenWidth(): void {
-    const width = this.window.innerWidth;
-    this.screenWidth$.emit(width);
     
-    if (width >= ViewportBreakpoints.XXL) {
-      this.breakpoint$.emit(ViewportBreakpoints.XXL);
-    } else if (width >= ViewportBreakpoints.XL) {
-      this.breakpoint$.emit(ViewportBreakpoints.XL);
-    } else if (width >= ViewportBreakpoints.LG) {
-      this.breakpoint$.emit(ViewportBreakpoints.LG);
-    } else if (width >= ViewportBreakpoints.MD) {
-      this.breakpoint$.emit(ViewportBreakpoints.MD);
-    } else if (width >= ViewportBreakpoints.SM) {
-      this.breakpoint$.emit(ViewportBreakpoints.SM);
-    } else {
-      this.breakpoint$.emit(ViewportBreakpoints.XS);
-    }
+    this.window.addEventListener('resize', () => {
+      this.setScreenWidth(this.getWidth());
+      this.setScreenHeight(this.getHeight());
+    });
+    
+    this.setScreenWidth(this.getWidth());
+    this.setScreenHeight(this.getHeight());
+    this.setBreakpoint(this.getWidth());
   }
   
-  private setScreenHeight(): void {
-    this.screenHeight$.emit(this.window.innerHeight);
+  private getWidth(): number {
+    return this.window.innerWidth;
+  }
+  
+  private getHeight(): number {
+    return this.window.innerHeight;
+  }
+  
+  private setScreenWidth(width: number): void {
+    this.screenWidth$.next(width);
+    this.setBreakpoint(width);
+  }
+  
+  private setScreenHeight(height: number): void {
+    this.screenHeight$.next(height);
+  }
+  
+  private setBreakpoint(width: number): void {
+    if (width >= ViewportBreakpoints.XXL) {
+      this.breakpoint$.next(ViewportBreakpoints.XXL);
+    } else if (width >= ViewportBreakpoints.XL) {
+      this.breakpoint$.next(ViewportBreakpoints.XL);
+    } else if (width >= ViewportBreakpoints.LG) {
+      this.breakpoint$.next(ViewportBreakpoints.LG);
+    } else if (width >= ViewportBreakpoints.MD) {
+      this.breakpoint$.next(ViewportBreakpoints.MD);
+    } else if (width >= ViewportBreakpoints.SM) {
+      this.breakpoint$.next(ViewportBreakpoints.SM);
+    } else {
+      this.breakpoint$.next(ViewportBreakpoints.XS);
+    }
   }
 }
