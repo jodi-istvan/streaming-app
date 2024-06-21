@@ -13,6 +13,9 @@ $font-weight-heavy: 800;
 $font-color-white: #ffffff;
 $font-color-blue: #3ea6ff;
 
+/**
+  Font-sizes
+ */
 .font__size--xs {
   font-size: $font-size-xs;
 }
@@ -29,6 +32,9 @@ $font-color-blue: #3ea6ff;
   font-size: $font-size-xl;
 }
 
+/**
+  Font-weights
+ */
 .font__weight--light {
   font-weight: $font-weight-light;
 }
@@ -53,6 +59,9 @@ $font-color-blue: #3ea6ff;
   color: $font-color-white
 }
 
+/**
+  Text decorations
+ */
 .link {
   font-weight: $font-weight-bold;
   color: $font-color-blue;

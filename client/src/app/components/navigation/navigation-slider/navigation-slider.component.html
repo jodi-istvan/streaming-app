@@ -1,7 +1,7 @@
 <div *ngIf="!isCollapsed" class="backdrop position-absolute d-md-none" (click)="toggle()"></div>
 
 <div
-    class="slider position-absolute top-0 start-0 bg-dark"
+    class="slider position-fixed top-0 start-0 bg-dark"
     #collapse="ngbCollapse"
     [(ngbCollapse)]="isCollapsed"
     [horizontal]="true"

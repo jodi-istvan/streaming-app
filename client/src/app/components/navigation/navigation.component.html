@@ -1,5 +1,5 @@
 <!-- Navbar-->
-<nav #navbar class="navbar navbar-expand-lg position-fixed top-0 w-100">
+<nav #navbar class="navbar navbar-expand-lg position-fixed top-0 w-100 bg-dark">
     <div class="container-fluid justify-content-between ps-0">
         <!-- Left elements -->
 
@@ -128,3 +128,10 @@
 <!-- Navbar -->
 
 <app-navigation-slider #sliderComponent></app-navigation-slider>
+
+<!--<div class="sidebar-placeholder" [ngStyle]="{ 'width.px': sliderComponent.mainContentOffset }"></div>-->
+
+<main class="main-content bg-dark-subtle p-2" [ngStyle]="{ 'margin-left.px': sliderComponent.mainContentOffset }">
+    <!-- Set main-offset based on navigation-slider's animationEnabled and
+     isCollapsed (signal or private service for navigation module) -->
+</main>

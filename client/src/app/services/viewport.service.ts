@@ -1,12 +1,12 @@
-import { Inject, Injectable } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
+import { WindowInjector } from '../shared/ui/window-injector.service';
 
 export enum ViewportBreakpoints {
   XS = 0,
   SM = 576,
   MD = 768,
-  LG= 992,
+  LG = 992,
   XL = 1200,
   XXL = 1400
 }
@@ -14,17 +14,15 @@ export enum ViewportBreakpoints {
 @Injectable({
   providedIn: 'root'
 })
-export class ViewportService {
+export class ViewportService extends WindowInjector {
   
   public screenWidth$: ReplaySubject<number> = new ReplaySubject<number>();
   public screenHeight$: ReplaySubject<number> = new ReplaySubject<number>();
   public breakpoint$: ReplaySubject<number> = new ReplaySubject<number>();
   
-  private window: Window;
-  
-  constructor(@Inject(DOCUMENT) private _document: Document) {
-    this.window = _document.defaultView;
-    
+  constructor() {
+    super();
+
     this.window.addEventListener('resize', () => {
       this.setScreenWidth(this.getWidth());
       this.setScreenHeight(this.getHeight());
