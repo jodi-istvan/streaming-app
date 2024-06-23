@@ -1,20 +1,21 @@
 <div *ngIf="!isCollapsed" class="backdrop position-absolute d-md-none" (click)="toggle()"></div>
 
 <div
-    class="slider position-fixed top-0 start-0 bg-dark"
     #collapse="ngbCollapse"
+    class="slider bg-dark"
+    [ngClass]="animationEnabled ? 'position-fixed top-0 start-0' : ''"
     [(ngbCollapse)]="isCollapsed"
     [horizontal]="true"
     [animation]="animationEnabled"
 >
-    <div class="py-2">
+    <div *ngIf="animationEnabled" class="py-2">
         <app-navigation-logo
                 (onMenuBtnClick)="collapse.toggle()"
                 [ariaExpanded]="!isCollapsed"
         ></app-navigation-logo>
     </div>
 
-    <div class="h-100 w-100 slider__content">
+    <div class="h-100 slider__content">
 
         <!-- First section -->
         <div class="p-2">

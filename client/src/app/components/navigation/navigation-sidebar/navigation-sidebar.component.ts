@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class NavigationSidebarComponent {
 
-  @Input() navbarHeight = 0;
+  // @Input() navbarHeight = 0;
 }

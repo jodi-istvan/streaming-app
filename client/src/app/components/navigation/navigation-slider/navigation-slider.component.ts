@@ -25,7 +25,7 @@ export class NavigationSliderComponent implements OnInit, AfterViewInit {
   
   public animationEnabled = false;
   
-  public mainContentOffset = 0;
+  // public mainContentOffset = 0;
 
   constructor(private viewportService: ViewportService) {}
   
@@ -40,16 +40,16 @@ export class NavigationSliderComponent implements OnInit, AfterViewInit {
   }
   
   ngAfterViewInit() {
-    const breakpointObs = this.viewportService.breakpoint$;
-    const collapseObs = this.ngbCollapse.ngbCollapseChange;
-    combineLatest([breakpointObs, collapseObs]).subscribe(([breakpoint, isCollapsed]) => {
-      console.log(breakpoint, isCollapsed);
-      if (breakpoint >= ViewportBreakpoints.MD) {
-        this.mainContentOffset = isCollapsed ? 64 : 240;
-      } else {
-        this.mainContentOffset = 0;
-      }
-    });
+    // const breakpointObs = this.viewportService.breakpoint$;
+    // const collapseObs = this.ngbCollapse.ngbCollapseChange;
+    // combineLatest([breakpointObs, collapseObs]).subscribe(([breakpoint, isCollapsed]) => {
+    //   console.log(breakpoint, isCollapsed);
+    //   if (breakpoint >= ViewportBreakpoints.MD) {
+    //     this.mainContentOffset = isCollapsed ? 64 : 240;
+    //   } else {
+    //     this.mainContentOffset = 0;
+    //   }
+    // });
   }
   
   public toggle(): void {

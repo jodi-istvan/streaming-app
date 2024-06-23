@@ -8,11 +8,11 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 export class NavigationComponent implements OnInit {
   
   public isCollapsed = true;
-  public navbarHeight = 0;
+  // public navbarHeight = 0;
   
-  @ViewChild('navbar', { static: true }) navbar: ElementRef;
+  // @ViewChild('navbar', { static: true }) navbar: ElementRef;
   
   ngOnInit() {
-    this.navbarHeight = this.navbar.nativeElement.offsetHeight;
+    // this.navbarHeight = this.navbar.nativeElement.offsetHeight;
   }
 }
