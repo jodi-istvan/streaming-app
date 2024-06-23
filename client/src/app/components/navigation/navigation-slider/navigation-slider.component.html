@@ -8,7 +8,7 @@
     [horizontal]="true"
     [animation]="animationEnabled"
 >
-    <div *ngIf="animationEnabled" class="py-2">
+    <div *ngIf="animationEnabled" class="py-2 app-logo">
         <app-navigation-logo
                 (onMenuBtnClick)="collapse.toggle()"
                 [ariaExpanded]="!isCollapsed"

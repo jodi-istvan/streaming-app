@@ -1,7 +1,6 @@
 import {
-  AfterViewInit,
   Component,
-  EventEmitter, inject,
+  EventEmitter,
   Input,
   OnInit,
   Output,
@@ -9,14 +8,14 @@ import {
 } from '@angular/core';
 import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
 import { ViewportBreakpoints, ViewportService } from '../../../services/viewport.service';
-import { combineLatest, first, merge, startWith } from 'rxjs';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-navigation-slider',
   templateUrl: './navigation-slider.component.html',
   styleUrls: ['./navigation-slider.component.scss']
 })
-export class NavigationSliderComponent implements OnInit, AfterViewInit {
+export class NavigationSliderComponent implements OnInit {
   
   @ViewChild('collapse') ngbCollapse: NgbCollapse;
   
@@ -24,8 +23,6 @@ export class NavigationSliderComponent implements OnInit, AfterViewInit {
   @Output() isCollapsedChange = new EventEmitter<boolean>();
   
   public animationEnabled = false;
-  
-  // public mainContentOffset = 0;
 
   constructor(private viewportService: ViewportService) {}
   
@@ -37,19 +34,6 @@ export class NavigationSliderComponent implements OnInit, AfterViewInit {
     this.viewportService.breakpoint$.subscribe(br => {
       this.animationEnabled = br < ViewportBreakpoints.MD;
     });
-  }
-  
-  ngAfterViewInit() {
-    // const breakpointObs = this.viewportService.breakpoint$;
-    // const collapseObs = this.ngbCollapse.ngbCollapseChange;
-    // combineLatest([breakpointObs, collapseObs]).subscribe(([breakpoint, isCollapsed]) => {
-    //   console.log(breakpoint, isCollapsed);
-    //   if (breakpoint >= ViewportBreakpoints.MD) {
-    //     this.mainContentOffset = isCollapsed ? 64 : 240;
-    //   } else {
-    //     this.mainContentOffset = 0;
-    //   }
-    // });
   }
   
   public toggle(): void {

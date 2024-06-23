@@ -5,7 +5,4 @@ import { Component, Input } from '@angular/core';
   templateUrl: './navigation-sidebar.component.html',
   styleUrls: ['./navigation-sidebar.component.scss']
 })
-export class NavigationSidebarComponent {
-
-  // @Input() navbarHeight = 0;
-}
+export class NavigationSidebarComponent {}

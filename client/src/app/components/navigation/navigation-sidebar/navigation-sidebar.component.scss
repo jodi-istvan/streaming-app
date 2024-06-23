@@ -1,7 +1,7 @@
 @import "client/src/_typography";
 
 .sidebar {
-  width: 64px;
+  width: 80px;
   height: 100%;
 
   &__item {
@@ -11,15 +11,12 @@
       background-color: #6b6b6b;
     }
 
-    * {
-      color: white;
+    &__text {
+      max-width: 50px;
     }
 
-    small {
-      font-size: $font-size-sm;
-      display: block;
-      font-weight: 300;
-      margin-top: 4px;
+    * {
+      color: white;
     }
   }
 }
