@@ -3,12 +3,14 @@ import {
   EventEmitter,
   Input,
   OnInit,
-  Output,
-  ViewChild
+  Output, signal,
+  ViewChild, WritableSignal
 } from '@angular/core';
 import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs';
 import { ViewportBreakpoints, ViewportService } from '../../../../services/viewport.service';
+import { AuthService } from '../../../../services/auth.service';
+import IUser from '../../../../models/user.model';
 
 @Component({
   selector: 'app-navigation-slider',
@@ -22,11 +24,18 @@ export class NavigationSliderComponent implements OnInit {
   @Input() isCollapsed: boolean = true;
   @Output() isCollapsedChange = new EventEmitter<boolean>();
   
+  user: WritableSignal<IUser> = signal(null);
+  
   public animationEnabled = false;
 
-  constructor(private viewportService: ViewportService) {}
+  constructor(
+    private viewportService: ViewportService,
+    private authService: AuthService,
+  ) {}
   
   ngOnInit() {
+    this.authService.user.subscribe(user => this.user.set(user));
+    
     this.viewportService.breakpoint$.pipe(first()).subscribe(br => {
       this.isCollapsed = br < ViewportBreakpoints.MD;
     }).unsubscribe();
