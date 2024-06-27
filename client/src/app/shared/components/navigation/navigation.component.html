@@ -35,7 +35,7 @@
                     </a>
                 </ng-container>
 
-                <ng-container *ngIf="!isUserLoading() && user()">
+                <ng-container *ngIf="!isUserLoading() && user() as user">
                     <li class="nav-item d-flex align-items-center me-4">
                     <span class="position-relative">
                         <i class="fas fa-bell fa-lg me-3 me-lg-1" style="color: white"></i>
@@ -70,7 +70,7 @@
                                         loading="lazy"
                                 />
                                 <div class="d-inline-flex flex-column justify-content-start align-items-start">
-                                    <span class="font__size--md font__weight--bold font__color--white">{{ user().name }}</span>
+                                    <span class="font__size--md font__weight--bold font__color--white">{{ user.name }}</span>
                                     <a class="link font__size--sm" href="#">View channel</a>
                                 </div>
                             </div>
@@ -106,17 +106,9 @@
                             </div>
 
                             <div class="py-2">
-                                <button class="py-2" ngbDropdownItem>
-                                    <i class="fa fa-home me-3"></i>
-                                    <span>Action</span>
-                                </button>
-                                <button class="py-2" ngbDropdownItem>
-                                    <i class="fa fa-home me-3"></i>
-                                    <span>Action</span>
-                                </button>
-                                <button class="py-2" ngbDropdownItem>
-                                    <i class="fa fa-home me-3"></i>
-                                    <span>Action</span>
+                                <button class="py-2" ngbDropdownItem (click)="logout()">
+                                    <i class="fa-solid fa-arrow-right-from-bracket me-3"></i>
+                                    <span>Log out</span>
                                 </button>
                             </div>
 

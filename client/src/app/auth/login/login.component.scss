@@ -1,5 +1,17 @@
 .form-container {
   margin-top: 4rem;
   max-width: 400px;
+
+  .profile-icon {
+    width: 4rem;
+    height: 4rem;
+    font-size: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem;
+    border-radius: 100%;
+    background-color: #3ea6ff;
+  }
 }
 

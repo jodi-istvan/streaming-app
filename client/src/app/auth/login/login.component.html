@@ -1,4 +1,6 @@
 <form class="form-container mx-auto d-flex flex-column justify-content-center align-items-center" [formGroup]="form">
+    <i class="fa-regular fa-user profile-icon mb-4"></i>
+    <h2 class="mb-4">Log in</h2>
     <app-input
             class="w-100"
             type="text"
@@ -17,7 +19,7 @@
             [control]="passwordControl"
             [errorMessage]="passwordErrorMessage"
     ></app-input>
-    <button class="btn btn-primary" type="submit" (click)="login()">
+    <button class="btn btn-primary" type="submit" [disabled]="form.invalid" (click)="login()">
         <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" *ngIf="isLoginLoading()"></span>
         <span>Log in</span>
     </button>

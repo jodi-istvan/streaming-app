@@ -48,9 +48,9 @@ export class AuthService {
     this.user.next(null);
   }
   
-  public isLoggedIn(): boolean {
-    return moment().isBefore(this.getExpiration());
-  }
+  // public isLoggedIn(): boolean {
+  //   return moment().isBefore(this.getExpiration());
+  // }
   
   private handleLogin(authResult: IAuthRes): void {
     const expiresAt = moment().add(authResult.expiresAt, 'second');

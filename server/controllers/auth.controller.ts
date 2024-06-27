@@ -29,7 +29,7 @@ export default class AuthController {
         return res.status(403).json({ message: 'User is inactive' })
       }
       
-      return res.status(200).json({ user });
+      return res.status(200).json(user);
     } catch (err) {
       return res.status(403).json({ message: 'Invalid bearer token' })
     }

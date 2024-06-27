@@ -1,7 +1,8 @@
 import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { finalize, map } from 'rxjs';
+import { finalize, from, map } from 'rxjs';
+import { Router } from '@angular/router';
 
 const errorTranslations = {
   required: 'This field is required',
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private router: Router,
   ) {}
   
   ngOnInit(): void {}
@@ -34,6 +36,7 @@ export class LoginComponent implements OnInit {
     this.isLoginLoading.set(true);
     this.authService.login(this.emailControl.value, this.passwordControl.value).pipe(
       map(() => this.authService.initUser()),
+      map(() => from(this.router.navigate(['/']))),
       finalize(() => this.isLoginLoading.set(false))
     ).subscribe();
   }
