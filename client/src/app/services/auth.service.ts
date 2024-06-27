@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, shareReplay, tap } from 'rxjs';
+import { BehaviorSubject, finalize, Observable, of, shareReplay, tap } from 'rxjs';
 
 import IUser from '../models/user.model';
 import * as moment from 'moment';
@@ -18,40 +18,45 @@ export class AuthService {
   
   private readonly BASE_URL = '/auth'
   
-  public user$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(null);
+  public user: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(null);
+  public isUserLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.initUser();
+  }
+  
+  public initUser(): void {
+    this.isUserLoading.next(true);
+    this.http.get<IUser>(`${this.BASE_URL}/active-user`).pipe(
+      finalize(() => this.isUserLoading.next(false)),
+    ).subscribe({
+      next: user => this.user.next(user),
+      error: err => this.user.next(null)
+    });
+  }
   
   public login(email: string, password: string): Observable<IAuthRes> {
     return this.http.post<IAuthRes>(`${this.BASE_URL}/login`, { email, password }).pipe(
-      tap(res => this.setSession(res)),
+      tap(res => this.handleLogin(res)),
       shareReplay()
-    )
+    );
   }
   
   public logout(): void {
-    localStorage.removeItem('user');
     localStorage.removeItem('bearerToken');
     localStorage.removeItem('expiresAt');
-    this.user$.next(null);
+    this.user.next(null);
   }
   
   public isLoggedIn(): boolean {
     return moment().isBefore(this.getExpiration());
   }
   
-  public initUser() {
-    if (this.isLoggedIn()) {
-      this.user$.next(JSON.parse(localStorage.getItem('user')));  
-    }
-  }
-  
-  private setSession(authResult: IAuthRes): void {
+  private handleLogin(authResult: IAuthRes): void {
     const expiresAt = moment().add(authResult.expiresAt, 'second');
-    localStorage.setItem('user', JSON.stringify(authResult.user));
     localStorage.setItem('bearerToken', authResult.token);
     localStorage.setItem('expiresAt', expiresAt.unix().toString());
-    this.user$.next(authResult.user);
+    this.user.next(authResult.user);
   }
   
   private getExpiration(): moment.Moment {

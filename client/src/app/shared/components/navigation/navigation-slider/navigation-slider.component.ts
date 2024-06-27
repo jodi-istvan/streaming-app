@@ -7,8 +7,8 @@ import {
   ViewChild
 } from '@angular/core';
 import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
-import { ViewportBreakpoints, ViewportService } from '../../../services/viewport.service';
 import { first } from 'rxjs';
+import { ViewportBreakpoints, ViewportService } from '../../../../services/viewport.service';
 
 @Component({
   selector: 'app-navigation-slider',

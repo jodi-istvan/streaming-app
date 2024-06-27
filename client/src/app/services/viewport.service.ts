@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { WindowInjector } from '../shared/ui/window-injector.service';
+import { WindowInjector } from '../shared/services/window-injector.service';
 
 export enum ViewportBreakpoints {
   XS = 0,

@@ -1,0 +1,24 @@
+<form class="form-container mx-auto d-flex flex-column justify-content-center align-items-center" [formGroup]="form">
+    <app-input
+            class="w-100"
+            type="text"
+            id="email"
+            placeholder="Email address"
+            label="Email address"
+            [control]="emailControl"
+            [errorMessage]="emailErrorMessage"
+    ></app-input>
+    <app-input
+            class="w-100"
+            type="password"
+            id="password"
+            placeholder="Password"
+            label="Password"
+            [control]="passwordControl"
+            [errorMessage]="passwordErrorMessage"
+    ></app-input>
+    <button class="btn btn-primary" type="submit" (click)="login()">
+        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" *ngIf="isLoginLoading()"></span>
+        <span>Log in</span>
+    </button>
+</form>

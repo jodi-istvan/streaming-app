@@ -5,14 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 import { APIInterceptor } from './interceptors/api.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavigationModule } from './components/navigation/navigation.module';
+import { NavigationModule } from './shared/components/navigation/navigation.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -20,11 +20,11 @@ import { NavigationModule } from './components/navigation/navigation.module';
     AppRoutingModule,
     SharedModule,
     NavigationModule,
-],
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
+      useClass: TokenInterceptor,
       multi: true,
     },
     {
@@ -33,6 +33,7 @@ import { NavigationModule } from './components/navigation/navigation.module';
       multi: true,
     }
   ],
-  bootstrap: [AppComponent]
+  exports: [],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

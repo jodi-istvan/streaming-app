@@ -10,7 +10,7 @@ import { catchError, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class TokenInterceptor implements HttpInterceptor {
   
   constructor(private router: Router) { }
   
@@ -21,10 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
       const headers = new HttpHeaders().set('Authorization', `Bearer ${bearerToken}`);
       const authRequest = req.clone({ headers });
       
-      return next.handle(authRequest).pipe(catchError(err => {
-        // this.router.navigateByUrl('/auth-error');
-        return of(err.message);
-      }));
+      return next.handle(authRequest);
     }
     else {
       return next.handle(req);

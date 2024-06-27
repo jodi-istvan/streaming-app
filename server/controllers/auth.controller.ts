@@ -7,6 +7,34 @@ import moment from 'moment';
 export default class AuthController {
   private readonly userService = new UserService()
   
+  public readonly activeUser = async (req: Request, res: Response) => {
+    const { authorization } = req.headers
+    if (!authorization) {
+      return res.status(400).json({ message: 'Missing authorization from request headers' })
+    }
+    
+    const token = authorization.split(' ')[1]
+    if (!token || !authorization.startsWith('Bearer')) {
+      return res.status(403).json({ message: 'Invalid bearer token format' })
+    }
+    
+    try {
+      const userId = AuthService.verifyJWTToken(token).id
+      const user = await this.userService.findById(userId)
+      
+      if (!user) {
+        return res.status(403).json({ message: 'User does not exist' })
+      }
+      if (!user.active) {
+        return res.status(403).json({ message: 'User is inactive' })
+      }
+      
+      return res.status(200).json({ user });
+    } catch (err) {
+      return res.status(403).json({ message: 'Invalid bearer token' })
+    }
+  }
+  
   public readonly signup = async (req: Request, res: Response) => {
     const { name, password, email } = req.body;
     if (!name || !password || !email) {

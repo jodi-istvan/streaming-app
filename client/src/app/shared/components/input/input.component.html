@@ -1,0 +1,14 @@
+<div class="input-container">
+    <label class="mb-1 ms-1" [for]="id">{{ label }}</label>
+    <input class="form-control"
+           [type]="type"
+           [id]="id"
+           [placeholder]="placeholder"
+           [formControl]="control"
+           [ngClass]="{
+                    'is-invalid': control.touched && control.invalid,
+                    'is-valid': control.touched && control.valid
+                }"
+    >
+    <div class="error-message text-danger">{{ errorMessage }}</div>
+</div>

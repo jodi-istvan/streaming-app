@@ -1,0 +1,141 @@
+<div class="navigation-container position-fixed top-0 w-100 h-100">
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid justify-content-between ps-0">
+            <!-- Left elements -->
+            <app-navigation-logo
+                    (onMenuBtnClick)="sliderComponent.toggle()"
+                    [ariaExpanded]="!sliderComponent.isCollapsed"
+            ></app-navigation-logo>
+            <!-- Left elements -->
+
+            <!-- Center elements -->
+            <ul class="navbar-nav flex-row d-none d-md-flex">
+                <!-- Search form -->
+                <form class="input-group w-auto my-auto d-none d-sm-flex">
+                    <input
+                            autocomplete="off"
+                            type="search"
+                            class="form-control rounded"
+                            placeholder="Search"
+                            style="min-width: 250px;"
+                    />
+                    <span class="input-group-text border-0 d-flex"
+                    ><i class="fas fa-search"></i
+                    ></span>
+                </form>
+            </ul>
+            <!-- Center elements -->
+
+            <!-- Right elements -->
+            <ul class="navbar-nav flex-row pe-4">
+                <ng-container *ngIf="!isUserLoading() && !user()">
+                    <a href="/auth/login" type="button" class="btn btn-outline-info rounded-pill">
+                        <i class="fa fa-user me-2" aria-hidden="true"></i>
+                        <span>Login</span>
+                    </a>
+                </ng-container>
+
+                <ng-container *ngIf="!isUserLoading() && user()">
+                    <li class="nav-item d-flex align-items-center me-4">
+                    <span class="position-relative">
+                        <i class="fas fa-bell fa-lg me-3 me-lg-1" style="color: white"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            99+
+                        </span>
+                    </span>
+                    </li>
+
+                    <li ngbDropdown class="nav-item" display="dynamic" placement="bottom-end">
+                        <button
+                                type="button"
+                                class="nav-link dropdown-toggle d-flex align-items-center"
+                                style="color: white"
+                                ngbDropdownToggle
+                        >
+                            <img
+                                    src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
+                                    class="rounded-circle"
+                                    height="30"
+                                    alt=""
+                                    loading="lazy"
+                            />
+                        </button>
+                        <div ngbDropdownMenu class="dropdown-menu">
+                            <div class="dropdown-section-bordered p-3 pt-0">
+                                <img
+                                        src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
+                                        class="rounded-circle me-4 mt-3"
+                                        height="50"
+                                        alt=""
+                                        loading="lazy"
+                                />
+                                <div class="d-inline-flex flex-column justify-content-start align-items-start">
+                                    <span class="font__size--md font__weight--bold font__color--white">{{ user().name }}</span>
+                                    <a class="link font__size--sm" href="#">View channel</a>
+                                </div>
+                            </div>
+
+                            <div class="dropdown-section-bordered py-2">
+                                <button class="py-2" ngbDropdownItem>
+                                    <i class="fa fa-home me-3"></i>
+                                    <span>Action</span>
+                                </button>
+                                <button class="py-2" ngbDropdownItem>
+                                    <i class="fa fa-home me-3"></i>
+                                    <span>Action</span>
+                                </button>
+                                <button class="py-2" ngbDropdownItem>
+                                    <i class="fa fa-home me-3"></i>
+                                    <span>Action</span>
+                                </button>
+                            </div>
+
+                            <div class="dropdown-section-bordered py-2">
+                                <button class="py-2" ngbDropdownItem>
+                                    <i class="fa fa-home me-3"></i>
+                                    <span>Action</span>
+                                </button>
+                                <button class="py-2" ngbDropdownItem>
+                                    <i class="fa fa-home me-3"></i>
+                                    <span>Action</span>
+                                </button>
+                                <button class="py-2" ngbDropdownItem>
+                                    <i class="fa fa-home me-3"></i>
+                                    <span>Action</span>
+                                </button>
+                            </div>
+
+                            <div class="py-2">
+                                <button class="py-2" ngbDropdownItem>
+                                    <i class="fa fa-home me-3"></i>
+                                    <span>Action</span>
+                                </button>
+                                <button class="py-2" ngbDropdownItem>
+                                    <i class="fa fa-home me-3"></i>
+                                    <span>Action</span>
+                                </button>
+                                <button class="py-2" ngbDropdownItem>
+                                    <i class="fa fa-home me-3"></i>
+                                    <span>Action</span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </li>
+                </ng-container>
+            </ul>
+            <!-- Right elements -->
+        </div>
+    </nav>
+
+    <div class="d-flex w-100 h-100">
+        <app-navigation-sidebar *ngIf="sliderComponent.isCollapsed" class="d-none d-md-block"></app-navigation-sidebar>
+
+        <app-navigation-slider #sliderComponent></app-navigation-slider>
+
+        <!-- Main content is rendered here -->
+        <main class="bg-dark w-100 h-100">
+            <ng-content></ng-content>
+        </main>
+    </div>
+</div>
