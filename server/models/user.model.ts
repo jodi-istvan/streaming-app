@@ -10,6 +10,7 @@ export default interface IUser extends Document {
   subscribers: number;
   active: boolean;
   signupConfirmToken?: string;
+  profilePictureUrl?: string;
   likedVideos?: Array<IVideo>;
   likedComments?: Array<IComment>;
   likedCommentResponses?: Array<ICommentResponse>;

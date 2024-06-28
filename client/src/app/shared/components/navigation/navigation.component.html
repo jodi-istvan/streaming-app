@@ -53,9 +53,10 @@
                                 ngbDropdownToggle
                         >
                             <img
-                                    src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
-                                    class="rounded-circle"
+                                    [src]="user.profilePictureUrl"
+                                    class="rounded-circle object-fit-cover"
                                     height="30"
+                                    width="30"
                                     alt=""
                                     loading="lazy"
                             />
@@ -63,9 +64,10 @@
                         <div ngbDropdownMenu class="dropdown-menu">
                             <div class="dropdown-section-bordered p-3 pt-0">
                                 <img
-                                        src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
-                                        class="rounded-circle me-4 mt-3"
+                                        [src]="user.profilePictureUrl"
+                                        class="rounded-circle me-4 mt-3 object-fit-cover"
                                         height="50"
+                                        width="50"
                                         alt=""
                                         loading="lazy"
                                 />
@@ -91,18 +93,10 @@
                             </div>
 
                             <div class="dropdown-section-bordered py-2">
-                                <button class="py-2" ngbDropdownItem>
-                                    <i class="fa fa-home me-3"></i>
-                                    <span>Action</span>
-                                </button>
-                                <button class="py-2" ngbDropdownItem>
-                                    <i class="fa fa-home me-3"></i>
-                                    <span>Action</span>
-                                </button>
-                                <button class="py-2" ngbDropdownItem>
-                                    <i class="fa fa-home me-3"></i>
-                                    <span>Action</span>
-                                </button>
+                                <a href="/settings" class="py-2" ngbDropdownItem>
+                                    <i class="fa fa-gear me-3"></i>
+                                    <span>Settings</span>
+                                </a>
                             </div>
 
                             <div class="py-2">

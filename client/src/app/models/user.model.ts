@@ -8,6 +8,7 @@ export default interface IUser {
   email: string;
   subscribers: number;
   active: boolean;
+  profilePictureUrl?: string;
   signupConfirmToken?: string;
   likedVideos?: Array<IVideo>;
   likedComments?: Array<IComment>;

@@ -1,16 +1,26 @@
 import { Request } from 'express';
 import multer from 'multer'
 import shell from 'shelljs'
+import { timestamp } from 'rxjs';
 
 export interface VideoFormat {
   duration: number;
 }
 
 export default class StorageService {
+  
   get multerVideoUpload() {
     return multer({
       storage: this._multerVideoStorage,
       fileFilter: this._multerVideoFilter
+    })
+  }
+  
+  get multerProfilePictureUpload() {
+    return multer({
+      storage: this._multerProfilePictureStorage,
+      limits: { fileSize: 1024 * 1024 * 2 },
+      fileFilter: this._multerImageFilter
     })
   }
   
@@ -82,6 +92,18 @@ export default class StorageService {
     }
   }
   
+  private _multerImageFilter = (req: Request, file, cb) => {
+    const filetypes = /jpeg|jpg|png|gif/;
+    const extension = filetypes.test(file.mimetype.split('/')[1].toLowerCase());
+    const mimetype = filetypes.test(file.mimetype);
+    
+    if (mimetype && extension) {
+      return cb(null, true);
+    } else {
+      cb('File should be of image type');
+    }
+  }
+  
   private _multerVideoStorage = multer.diskStorage({
     destination: (req: Request, file, cb) => {
       cb(null, process.env.VIDEO_UPLOAD_DEST)
@@ -91,6 +113,18 @@ export default class StorageService {
       const timestamp = Date.now().toString()
       const extension = file.mimetype.split('/')[1]
       const fileName = `${userId}-${timestamp}.${extension}`
+      cb(null, fileName)
+    }
+  })
+  
+  private _multerProfilePictureStorage = multer.diskStorage({
+    destination: (req: Request, file, cb) => {
+      cb(null, process.env.PROFILE_PICTURE_UPLOAD_DESTINATION)
+    },
+    filename: (req: Request, file, cb) => {
+      const userId = req.user._id
+      const extension = file.mimetype.split('/')[1]
+      const fileName = `${userId}.${extension}`
       cb(null, fileName)
     }
   })

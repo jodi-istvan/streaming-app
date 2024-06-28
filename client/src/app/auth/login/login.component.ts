@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     // 'admin32@gmail.com', 'admin2121'
     this.isLoginLoading.set(true);
     this.authService.login(this.emailControl.value, this.passwordControl.value).pipe(
-      map(() => this.authService.initUser()),
+      map(() => this.authService.getActiveUser()),
       map(() => from(this.router.navigate(['/']))),
       finalize(() => this.isLoginLoading.set(false))
     ).subscribe();

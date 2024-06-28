@@ -41,6 +41,9 @@ const userSchema = new mongoose.Schema<IUser, UserModel, IUserMethods>({
     required: true,
     select: false,
   },
+  profilePictureUrl: {
+    type: String,
+  },
   signupConfirmToken: {
     type: String,
     select: false,

@@ -9,10 +9,12 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { APIInterceptor } from './interceptors/api.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationModule } from './shared/components/navigation/navigation.module';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    UserSettingsComponent,
   ],
   imports: [
     BrowserModule,

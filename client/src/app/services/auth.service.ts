@@ -22,10 +22,10 @@ export class AuthService {
   public isUserLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   
   constructor(private http: HttpClient) {
-    this.initUser();
+    this.getActiveUser();
   }
   
-  public initUser(): void {
+  public getActiveUser(): void {
     this.isUserLoading.next(true);
     this.http.get<IUser>(`${this.BASE_URL}/active-user`).pipe(
       finalize(() => this.isUserLoading.next(false)),
