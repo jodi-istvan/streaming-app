@@ -50,7 +50,7 @@ export default class AuthController {
       const from = 'Iodi Istvan <streaming-app@admin.com>'
       const to = email
       const subject = 'Streaming app - confirm signup'
-      const html = `<p>Confirm your email address by clicking <a href="${resetURL}">here</a>.</p>>`
+      const html = `<p>Confirm your email address by clicking <a href="${resetURL}">here</a>.</p>`
       
       await Mailer.sendMail({ from, to, subject, html })
       return res.sendStatus(201);
@@ -72,7 +72,7 @@ export default class AuthController {
 
     try {
       await AuthService.activateUser(token)
-      res.writeHead(301, { Location: 'http://localhost:4200' })
+      res.writeHead(301, { Location: 'http://localhost:55366/auth/login' })
       
       return res.end()
     } catch (err) {

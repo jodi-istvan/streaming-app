@@ -1,1 +1,38 @@
-<p>signup works!</p>
+<form class="form-container mx-auto d-flex flex-column justify-content-center align-items-center" [formGroup]="form">
+    <i class="fa-regular fa-user profile-icon mb-4"></i>
+    <h2 class="mb-4">Sign up</h2>
+    <app-input
+            class="w-100"
+            type="text"
+            id="name"
+            placeholder="Name"
+            label="Name"
+            [control]="nameControl"
+            [errorMessage]="nameErrorMessage"
+    ></app-input>
+    <app-input
+            class="w-100"
+            type="text"
+            id="email"
+            placeholder="Email address"
+            label="Email address"
+            [control]="emailControl"
+            [errorMessage]="emailErrorMessage"
+    ></app-input>
+    <app-input
+            class="w-100"
+            type="password"
+            id="password"
+            placeholder="Password"
+            label="Password"
+            [control]="passwordControl"
+            [errorMessage]="passwordErrorMessage"
+    ></app-input>
+
+    <button class="btn btn-primary mb-4" type="submit" [disabled]="form.invalid || isSignupLoading()" (click)="signup()">
+        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" *ngIf="isSignupLoading()"></span>
+        <span>Sign up</span>
+    </button>
+
+    <div>Have an account already? <a href="/auth/login">Log in</a></div>
+</form>

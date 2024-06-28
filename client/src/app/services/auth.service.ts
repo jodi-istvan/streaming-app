@@ -35,6 +35,10 @@ export class AuthService {
     });
   }
   
+  public signup(name: string, email: string, password: string): Observable<string> {
+    return this.http.post(`${this.BASE_URL}/signup`, { name, email, password }, { responseType: 'text'});
+  }
+  
   public login(email: string, password: string): Observable<IAuthRes> {
     return this.http.post<IAuthRes>(`${this.BASE_URL}/login`, { email, password }).pipe(
       tap(res => this.handleLogin(res)),

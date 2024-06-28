@@ -19,8 +19,11 @@
             [control]="passwordControl"
             [errorMessage]="passwordErrorMessage"
     ></app-input>
-    <button class="btn btn-primary" type="submit" [disabled]="form.invalid" (click)="login()">
+
+    <button class="btn btn-primary mb-4" type="submit" [disabled]="form.invalid || isLoginLoading()" (click)="login()">
         <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" *ngIf="isLoginLoading()"></span>
         <span>Log in</span>
     </button>
+
+    <div>No account yet? <a href="/auth/signup">Sign up</a></div>
 </form>
