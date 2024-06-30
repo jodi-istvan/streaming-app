@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { User } from '../schemas/user.schema.js';
 import StorageService from '../services/storage.service.js';
-import { id } from '@cds/core/internal';
 
 export default class UserController {
   private readonly model = User
@@ -24,14 +23,8 @@ export default class UserController {
     const { user } = req;
     const fileName = req.file.filename;
     const profilePictureUrl = `${process.env.DEV_HOST}:${process.env.DEV_PORT}/${process.env.PROFILE_PICTURE_UPLOAD_DESTINATION}/${fileName}`;
-    
-    console.log(user._id)
-    console.log(profilePictureUrl)
-    
     try {
-      const asd = await this.model.findByIdAndUpdate(user._id, { profilePictureUrl });
-      
-      console.log(asd)
+      await this.model.findByIdAndUpdate(user._id, { profilePictureUrl });
       
       return res.status(203).json();
     } catch (err) {

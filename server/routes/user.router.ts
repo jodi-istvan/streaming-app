@@ -8,4 +8,9 @@ const authController = new AuthController()
 export const userRouter = express.Router()
 
 userRouter.get('/:id', userController.get);
-userRouter.put('/profile-picture', authController.authenticate, userController.uploadProfilePicture, userController.updateProfilePicture)
+userRouter.put(
+  '/profile-picture',
+  authController.authenticate,
+  userController.uploadProfilePicture,
+  userController.updateProfilePicture
+);

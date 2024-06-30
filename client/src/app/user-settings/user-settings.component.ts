@@ -1,9 +1,10 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, computed, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import IUser from '../models/user.model';
 import { FormBuilder } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { map } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-user-settings',
@@ -12,8 +13,13 @@ import { map } from 'rxjs';
 })
 export class UserSettingsComponent implements OnInit {
   
-  readonly user: WritableSignal<IUser> = signal(null);
-  readonly isUploadLoading: WritableSignal<boolean> = signal(false);
+  readonly user: Signal<IUser> = toSignal(this.authService.user);
+  readonly isUserLoading: Signal<boolean> = toSignal(this.authService.isUserLoading);
+  readonly isProfilePictureLoading: Signal<boolean> = computed(() => {
+    const asd = this.isUserLoading() || this.userService.isPictureUploadLoading();
+    console.log(asd)
+    return asd;
+  });
   
   readonly form = this.formBuilder.group({
     profilePicture: ['', []],
@@ -25,12 +31,9 @@ export class UserSettingsComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) {}
   
-  ngOnInit(): void {
-    this.authService.user.subscribe(user => this.user.set(user));
-  }
+  ngOnInit(): void {}
   
   onFileChange(event: Event): void {
-    this.isUploadLoading.set(true);
     const target = event.target as HTMLInputElement;
     const image = (target.files as FileList)[0];
     
@@ -42,6 +45,12 @@ export class UserSettingsComponent implements OnInit {
     formData.append("profilePicture", image);
     this.userService.uploadProfilePicture(formData).pipe(
       map(() => this.authService.getActiveUser())
-    ).subscribe(() => this.isUploadLoading.set(false));
+    ).subscribe();
+  }
+  
+  onFileLabelClick(event: Event): void {
+    if (this.isProfilePictureLoading()) {
+      event.preventDefault();
+    }
   }
 }
