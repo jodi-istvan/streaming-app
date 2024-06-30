@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbCollapseModule, NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InputComponent } from './components/input/input.component';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 const declarations = [
   InputComponent,
@@ -17,6 +17,7 @@ const declarations = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterLink,
     NgbModule,
     RouterOutlet,
   ],
@@ -27,6 +28,7 @@ const declarations = [
     NgbModule,
     NgbDropdownModule,
     NgbCollapseModule,
+    RouterLink,
     RouterOutlet,
     ...declarations
   ]
