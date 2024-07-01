@@ -1,4 +1,4 @@
-import { Component, computed, OnInit, signal, Signal, WritableSignal } from '@angular/core';
+import { Component, computed, OnInit, Signal } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import IUser from '../models/user.model';
 import { FormBuilder } from '@angular/forms';
@@ -15,11 +15,8 @@ export class UserSettingsComponent implements OnInit {
   
   readonly user: Signal<IUser> = toSignal(this.authService.user);
   readonly isUserLoading: Signal<boolean> = toSignal(this.authService.isUserLoading);
-  readonly isProfilePictureLoading: Signal<boolean> = computed(() => {
-    const asd = this.isUserLoading() || this.userService.isPictureUploadLoading();
-    console.log(asd)
-    return asd;
-  });
+  readonly isProfilePictureLoading: Signal<boolean> = computed(() =>
+    this.isUserLoading() || this.userService.isPictureUploadLoading());
   
   readonly form = this.formBuilder.group({
     profilePicture: ['', []],

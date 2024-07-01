@@ -1,5 +1,5 @@
 <div class="pt-6 container">
-    <form [formGroup]="form" class="w-100 p-4 settings-header" *ngIf="user()">
+    <form [formGroup]="form" class="w-100 p-4 settings-header" *ngIf="user() as user">
         <label
                 for="upload"
                 [ngClass]="{ 'upload-label': true, 'loading': isProfilePictureLoading() }"
@@ -10,8 +10,8 @@
                     class="rounded-circle"
                     alt="Profile picture"
                     loading="lazy"
-                    *ngIf="user().profilePictureUrl; else profilePicturePlaceholder"
-                    [src]="user().profilePictureUrl"
+                    *ngIf="user.profilePictureUrl; else profilePicturePlaceholder"
+                    [src]="user.profilePictureUrl"
                 />
             </div>
             <div class="upload-text">Upload image</div>
@@ -22,12 +22,11 @@
                 class="file-upload"
                 type="file"
                 accept="image/*"
-                [disabled]="isProfilePictureLoading()"
                 (change)="onFileChange($event)">
 
         <div class="d-inline-block ms-5">
-            <h2>{{ user().name }}</h2>
-            <div>{{ user().email }}</div>
+            <h2>{{ user.name }}</h2>
+            <div>{{ user.email }}</div>
         </div>
     </form>
 </div>
