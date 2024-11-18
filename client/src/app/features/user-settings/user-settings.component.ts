@@ -1,8 +1,8 @@
 import { Component, computed, OnInit, Signal } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import IUser from '../models/user.model';
+import { AuthService } from '../../services/auth.service';
+import IUser from '../../models/user.model';
 import { FormBuilder } from '@angular/forms';
-import { UserService } from '../services/user.service';
+import { UserService } from '../../services/user.service';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
